@@ -1,0 +1,89 @@
+.no-padding{
+	padding: 0;
+	width: 100%;
+}
+
+body  {
+    background-size:100%;
+    background-color: #cccccc;
+    background-repeat:no-repeat;
+}
+
+.headerDiv{
+	margin: 0px;
+	min-height: 70px;
+	background-color: #ee9620;
+	text-align: center;
+	font-size: large;
+	padding: 0px;
+}
+
+.mainContent{
+	margin: 0px;
+	min-height: 90%;
+	text-align: center;
+	font-size: large;
+	padding: 0px;
+}
+
+.takeHeight {
+	min-height: 168px
+}
+
+.loginForm {
+	background-color: #474747;
+	font-size: 0.75em;
+	padding:10%;
+	border-radius: 8px;
+	text-align: left;
+}
+
+.footer {
+	margin: 0px;
+	min-height: 50px;
+	background-color: #6f7070;
+	color: #ffffff;
+	text-align: center;
+	font-size: large;
+	padding: 0px;
+}
+
+label {
+	position: absolute;
+	margin-top: 0.5em;
+	color: white;
+}
+
+.inp { /*for other inputs*/
+    margin-left: 99px;
+    margin-top: 0.5em;
+    width:200px;
+    border-radius: 5px;
+}
+
+.inp1 { /*for button*/
+	margin-top: 1em;
+	margin-right: 20px; 
+	margin-left: 10px;
+    background-color: #ee9620; 
+    border: none;
+    /*color: white; for font color*/
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 125px;
+    height:35px;
+    border-radius: 10px;
+}
+
+.error{
+	display: none;
+	margin-left: 10px;
+}		
+		
+.error_show{
+	color: red;
+	margin-left: 10px;
+}

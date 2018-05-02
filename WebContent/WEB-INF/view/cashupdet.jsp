@@ -1,0 +1,14 @@
+<div id="dtwothousand">${d2000}</div>
+<div id="dthousand">${d1000}</div>
+<div id="dfivehundred">${d500}</div>
+<div id="dtwohundred">${d200}</div>
+<div id="dhundred">${d100}</div>
+<div id="dfifty">${d50}</div>
+<div id="dtwenty">${d20}</div>
+<div id="dten">${d10}</div>
+<div id="dfive">${d5}</div>
+<div id="dtwo">${d2}</div>
+<div id="done">${d1}</div>
+<div id="operatorid">${operatorId}</div>
+<div id="operatorfirstname">${operatorFirstName}</div>
+<div id="operatorlastname">${operatorLastName}</div>

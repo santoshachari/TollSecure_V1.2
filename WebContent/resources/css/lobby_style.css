@@ -1,0 +1,210 @@
+body {
+			width: 98.93%;	
+		}
+		.nopadding {
+			padding: 0;
+			margin: 0px;
+			position: relative;
+            width: 100%;
+		}
+		
+		.header {/*change this after you go there*/
+            background-color: #ee9620;
+            min-height: 120px;
+            position: relative;
+            width: 99%;
+        }
+
+        .footer {
+        	min-height: 8.95%;
+        	background-color: #474747;
+        	margin-top: -10px;
+        	z-index: 2;
+        	color: #ffffff;
+        }
+
+        .sidebar {
+        	background-color: #6f7070;
+        	min-height: 77%;
+        }
+        
+        .maincontent {
+        	min-height: 100%;
+        }
+
+        #vtab > div > ul > li {
+        width: 135%;
+        height: 25.5%;
+        margin: 0px;
+        margin-left: -40px;
+        text-align: center;
+    }
+    
+    	#vtab > div > ul > li:hover {
+    		border : solid 1px rgba(0,0,0,0.1); 
+    		border-right: 0px;
+    	}
+
+
+
+     #vtab > div > ul > li.home {
+        /*background: url('home.png') no-repeat center center;*/
+    }
+    #vtab > div > ul > li.login {
+        /*background: url('login.png') no-repeat center center;*/
+    }
+    #vtab > div > ul > li.support {
+        /*background: url('support.png') no-repeat center center;*/
+    }
+    #vtab > div > ul > li.selected {
+       	border : solid 1px rgba(0,0,0,0.1); 
+    	border-right: 0px;
+    }
+    
+
+    #vtab > div {
+        position: relative;
+        z-index: 1;
+    }
+
+    /*for link to look like button*/
+    .button {
+	  font: bold;
+	  text-decoration: none;
+	  text-align: center;
+	  background-color: #ee9620;
+	  color: #000000;
+	  display: inline-block;
+	  width: 200px;
+	  padding: 60 0 60 0;
+	  border: 1px solid #000000;
+	  border-radius: 5px;
+	  margin: -50px;
+	}
+
+	a.button:hover{
+	  font: bold;
+	  text-decoration: none;
+	  text-align: center;
+	  background-color: #ee9620;
+	  color: #000000;
+	  background-image: url(${pageContext.request.contextPath}/resources/images/TS_SelectedButton.png); 
+	  display: inline-block;
+	  width:200px;
+	  padding: 60 0 60 0;
+	  border: 1px solid #000000;
+	  border-radius: 5px;
+	  margin: -50px;
+	}
+
+	.innermost {
+		min-height: 20%;
+	}
+
+	.innermost ul {
+		list-style-type:none;
+		padding: 10%;
+		margin-top: 20%;
+		margin-left: 20%;
+	}
+
+	.innermost ul li a{
+		display: inline-block;
+		text-align: center;
+    	width: 200px;
+    	padding: 50px 0 50px 0;
+	}
+	
+	.innermost ul li a:hover{
+		display: inline-block;
+    	text-align: center;
+    	width: 200px;
+    	padding: 50px 0 50px 0;
+	}
+	
+	.report ul li a:hover{
+		display: inline-block;
+    	text-align: center;
+    	width: 200px;
+    	padding: 50px 0 50px 0;
+	}
+
+
+	.signout {
+		width: 100px;
+		height: 35px;
+	    border-radius: 5px;
+	    border-style: none;
+	    background-color: #000000;
+	    color: #ffffff;
+	}
+
+	.notordinary {
+		position: relative; 
+		left:-81.5px;
+	}
+	
+		.notordinary1 {
+		position: relative; 
+		left:-8.5%;
+	}
+	
+	
+	
+	/*for sub menus*/
+
+	.innermost ul li ul{
+		border-radius: 10px 10px 10px 10px;
+		border: solid 1px #000000;
+		z-index: 100;
+        background-color: #ee9620;
+        margin:0;
+        padding:0;
+	}
+	
+
+    ul li ul li{
+        float: none; 
+        border: solid 1px #000000;
+    }
+
+	ul li ul li a {
+		 min-width:330px; 
+		 text-decoration: none;
+		 color: #000000;
+	}
+		
+	ul li ul li:first-child {
+		/*border-radius: 10px 10px 0px 0px;*/
+		border: 0px;
+		border-bottom: 1px solid #000000;
+	}
+	
+	ul li ul li:last-child {
+		/*border-radius: 0px 0px 10px 10px;*/
+		border: 0px;
+		/*border-top: 1px solid #000000;*/
+	}
+	
+	ul li ul li a:hover {
+		 text-decoration: none;
+		 color: #ffffff;
+		 background-color: #FF8C00;
+	}
+	
+	ul li ul li:first-child:hover {
+		border-radius: 10px 10px 0px 0px;
+	}
+	
+	ul li ul li:last-child:hover {
+		border-radius: 0px 0px 10px 10px;
+	}
+	
+    ul li ul {
+        display: none;
+    }
+
+    ul li:hover ul {
+        display: block;
+    }
+	

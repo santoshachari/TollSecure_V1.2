@@ -1,0 +1,1 @@
+<img src="http://192.168.1.250/cgi-bin/snapshot.cgi?channel=0"/>

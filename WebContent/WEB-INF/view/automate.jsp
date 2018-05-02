@@ -1,0 +1,1 @@
+${vehicleClassId}=${vehicleClass}=${vehicleExist}

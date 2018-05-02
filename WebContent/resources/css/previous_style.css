@@ -1,0 +1,230 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+	
+}
+
+ 
+.inputData label { /*will make inputs position wtr left most corner and not labels*/
+    position: absolute;
+    margin-top: 0.5em;
+}
+
+
+/*
+General Styles 
+*/
+
+* {
+    padding: 0;
+    margin: 0;  
+    box-sizing: border-box;
+	
+}
+
+
+div.content {
+    flex-direction: column;
+}
+
+
+/*
+Content Styles 
+*/
+
+#demo1 {
+    margin-left: 0px;
+}
+
+div.content {
+    display: flex;  
+    flex-direction: row;    
+    font-size: 20px;
+}
+
+div.content > div.left {
+    flex-grow: 1;
+    margin-top: 20px;
+    margin-bottom: 100px;
+    /*margin-right: 10px;*/
+    margin-left: 10px;
+}
+
+div.content > div.right {
+    /*flex-grow: 1;*/
+
+    margin-top: 20px;
+    margin-bottom: 100px;
+    margin-right: 10px;
+    /*margin-left: 100px;*/
+    width: 100%;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 250%;
+}
+
+
+
+
+
+
+@media (max-width: 650px) {
+    div.content {
+    flex-direction: column;
+    }
+}
+
+
+
+
+
+.inputData .inp { /*for other inputs*/
+    margin-left: 200px;
+    margin-top: 0.5em;
+}
+
+.inputData .inp1 { /*for button*/
+    margin-left: 200px;
+    margin-top: 0.5em;
+}
+
+
+
+.inputData {
+    background-color: lightblue;
+    /*position: absolute;*/
+    padding: 0.5%;
+    padding-top: 2em;
+    border-radius: 15px;
+}
+
+.inputData h1 {
+    font-family: "Arial";
+    margin-top: -1em;
+    margin-left: 3em;
+    position: relative;
+}
+
+.inputData span{
+    position: relative;
+    font-size: 0.8em;
+}
+
+.inp1 {
+    background-color: #FFb733; 
+    border: none;
+    /*color: white; for font color*/
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+input[type=text], select {
+    /*width: 15%;*/
+    padding: 5px 5px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    /*width: 242px;*/
+}
+
+input[type=text]:disabled {
+    /*width: 15%;*/
+    padding: 5px 5px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background: #dddddd;
+    /*width: 242px;*/
+}
+
+/*For errors and printing*/
+
+.error{
+	display: none;
+	margin-left: 10px;
+}		
+		
+.error_show{
+	color: red;
+	margin-left: 10px;
+}
+		
+input.invalid, textarea.invalid{
+	border: 2px solid red;
+}
+		
+input.valid, textarea.valid{
+	border: 2px solid green;
+}
+                
+div.content{
+    display: flex;
+    flex-direction: row;
+}
+                
+#video {
+    width: 700px;
+    height: 500px;
+}
+                
+@media (max-width: 650px) {
+	div.content {
+   		display: flex;
+   		flex-direction: column;
+	}
+
+	#video {
+    	width: 500px;
+    	height: 500px;
+	}
+}
+                
+@media print {
+   .left * {
+       visibility: hidden;
+   }
+   .right {
+       visibility: visible;
+    }
+    .inputData {
+        position: absolute;
+        left: 0;
+        top: 0;
+     }
+}    
+
+/*styling table*/
+table {
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid black;
+    text-align: center;
+    font-size: 10;
+}            
+
+              

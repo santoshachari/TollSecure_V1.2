@@ -1,0 +1,1 @@
+${theUser.userId}=${theUser.userFirstName}=${theUser.userLastName}=${floatingAmount}
