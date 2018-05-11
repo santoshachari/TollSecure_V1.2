@@ -483,6 +483,34 @@ public class JasperController {
 		theModel.addAttribute("type", type);
 		return "report_iframe";
 	}
+	
+	@RequestMapping("/journeyTypeClassification")
+	public String journeyTypeClassification(Model theModel, HttpSession session) {
+		//handling session
+				User userFromSession = (User) session.getAttribute("userFromSession");
+				if(userFromSession==null) return "redirect:/";
+				if(!userFromSession.getUserRole().equals("Admin") && !userFromSession.getUserRole().equals("Supervisor")) return "redirect:/"; 
+				
+
+				//send all tollPlazas and lanes
+				List<TollPlaza> allTollPlazas = theTollPlazaService.getAllTollPlazas();
+				TollPlaza lastTollPlaza = allTollPlazas.get(allTollPlazas.size()-1);
+				
+				//get all the lanes, shifts, TC for last toll plaza
+				List<Lane> allLanes = theLaneService.getAllLanes(lastTollPlaza.getTollPlazaId());
+				List<Shift> allShifts = theShiftService.getAllShifts(lastTollPlaza.getTollPlazaId());
+				List<User> allOperators = theUserService.getAllOperators(lastTollPlaza.getTollPlazaId());
+
+				Date today = new Date();
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				
+				theModel.addAttribute("allTollPlazas", allTollPlazas);
+				theModel.addAttribute("allLanes", allLanes);
+				theModel.addAttribute("allShifts", allShifts);
+				theModel.addAttribute("allOperators", allOperators);
+				theModel.addAttribute("today", sdf.format(today));
+		return "journeyTypeClassificationReport";
+	}
 }
 
 

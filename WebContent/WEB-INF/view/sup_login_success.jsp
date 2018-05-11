@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Insert title here</title>
+<title>Supervisor - Home</title>
 
 	<!-- fevicon -->
  	<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.ico" type="image/x-icon">
@@ -33,6 +33,10 @@ document.addEventListener('contextmenu', event => event.preventDefault());
 		background-color: transparent;
    
     }
+    
+    ul {
+	  list-style-type: none;
+	}
 </style>
 	
 <script src="${pageContext.request.contextPath}/resources/js/jQuery.js"></script>
@@ -234,13 +238,14 @@ document.addEventListener('contextmenu', event => event.preventDefault());
 					            		<ul>
 					            			<li>
 					            				<a href="#" class="button" style="background: transparent; border:0; background-image: url(${pageContext.request.contextPath}/resources/images/but1.png) ; background-size: cover;">traffic Analysis<br/>&nbsp;</a>
-					            				<ul style="position: absolute; top: -125%; left: 77%;">
+					            				<ul style="position: absolute; top: -175%; left: 77%;">
 					            					<li><a href="${pageContext.request.contextPath}/jasper/consolidatedTraffic" style="padding:25px; border-radius:10px 10px 0px 0px">Consolidated Traffic Report</a></li>
 					            					<li><a href="${pageContext.request.contextPath}/jasper/DatewiseLanewiseTraffic" style="padding:25px;">Datewise/ Lanewise Traffic Report</a></li>
 					            					<li><a href="${pageContext.request.contextPath}/jasper/DatewiseTraffic" style="padding:25px;">Datewise Traffic Report</a></li>
 					            					<li><a href="${pageContext.request.contextPath}/jasper/LanewiseTraffic" style="padding:25px; border-radius:0px 0px 10px 10px">Lanewise Traffic Report</a></li>
 					            					<!-- <li><a href="#" style="padding:25px;">Traffic Report By Journey Type</a></li> -->
 					            					<li><a href="${pageContext.request.contextPath}/jasper/exemptedTraffic" style="padding:25px; border-radius: 0px 0px 10px 10px">Exempted Traffic Report</a></li>		
+					            					<li><a href="${pageContext.request.contextPath}/jasper/journeyTypeClassification" style="padding:25px; border-radius: 0px 0px 10px 10px">Journey Type Classification Report</a></li>		
 					            				</ul>
 					            			
 					            			</li>

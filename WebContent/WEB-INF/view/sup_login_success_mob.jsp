@@ -223,6 +223,7 @@
 													<li><a href="${pageContext.request.contextPath}/jasper/DatewiseTraffic">Datewise Traffic Report</a></li>
 													<li><a href="${pageContext.request.contextPath}/jasper/LanewiseTraffic">Lanewise Traffic Report</a></li>
 													<li><a href="${pageContext.request.contextPath}/jasper/exemptedTraffic">Exempted Traffic Report</a></li>
+													<li><a href="${pageContext.request.contextPath}/jasper/journeyTypeClassification">Journey Type Classsification Report</a></li>
 												</ul>
 											</div> 
 										</li>

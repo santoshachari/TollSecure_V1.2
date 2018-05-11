@@ -4,13 +4,13 @@
 <%@ page session="true" %>
 <!DOCTYPE html>
 <head>
-	<title>Short/ Excess Report</title>
+	<title>Journey Type Classification Report</title>
 	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
 	
 	<!-- fevicon -->
  	<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.ico" type="image/x-icon">
     <link rel="icon" href="${pageContext.request.contextPath}/resources/images/favicon.ico" type="image/x-icon">
-	
+    
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/cancel_ticket.css">
 	<style>
@@ -34,7 +34,7 @@
 		//prevents right click
 		//document.addEventListener('contextmenu', event = event.preventDefault());
 		//set latest toll plaza by default
-		var action ="ShortExcessRevenueReport";
+		var action ="JourneyTypeClassificationReport";
 		function showLanesDirections(plazaId) {
 
 			//Sending request
@@ -194,7 +194,7 @@
 						<a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/resources/images/TS_Logo_hdpi.png" class="pull-left" height="52" width="225"/></a>
 					</div>
 					<div class="col-xs-5">
-							<h4 class="heading" style="font-size: 0.9em">Short Excess Report</h4>
+							<h4 class="heading" style="font-size: 0.9em">Journey Type Classification Report</h4>
 						<div></div>
 					</div>
 					<div class="col-xs-4" style="position: relative; top: 25px; left: 40px;">
@@ -309,7 +309,7 @@
 			<div class="col-xs-12" style="background-color: #ee9620">
 				<img src='${pageContext.request.contextPath}/resources/images/TS_Logo_hdpi.png' alt='TollSecure - Securing Toll Business' style="margin-left: 15%; margin-bottom: 10%" width="60%"/>
 				<input type="image" src="${pageContext.request.contextPath}/resources/images/mono-logout.svg" alt="Signout" width="28" height="28" style="margin-left: 15%" onclick="window.location.href='${pageContext.request.contextPath}/index/logout';">
-				<br><span style="margin-left:20%">Short/ Excess Report</span>
+				<br><span style="margin-left:20%">Journey Type Classification Report</span>
 			</div>
 		</div>
 	

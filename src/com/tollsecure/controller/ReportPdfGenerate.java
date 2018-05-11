@@ -161,7 +161,7 @@ public class ReportPdfGenerate {// tends HttpServlet {
 			}
 
 			else if (action.equals("ShortExcessRevenueReport") || action.equals("CashupSummaryReport")
-					|| action.equals("MonthlyPassDetailsReport")) {
+					|| action.equals("MonthlyPassDetailsReport") || action.equals("JourneyTypeClassificationReport")) {
 				shiftId = request.getParameter("shiftId");
 				if (shiftId.equals("") || shiftId == null)
 					shiftId = "All";
