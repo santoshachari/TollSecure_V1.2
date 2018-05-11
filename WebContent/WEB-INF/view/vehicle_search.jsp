@@ -47,10 +47,94 @@
 }
 </style>
 
+<!-- modal style -->
+	<style>
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+</style>
+
+
 	<script>
 		//prevents right click
-
 		//document.addEventListener('contextmenu', event = event.preventDefault());
+		
+		var g_transactionId = null;
+		
+		function checkTransactionAndCancel(transactionId) {
+			g_transactionId = transactionId;
+			var url = "${pageContext.request.contextPath}/tollTransaction/checkIfCashUpIsDone?transactionId="+transactionId;
+			
+			if (typeof XMLHttpRequest != "undefined") {
+		        xmlHttp = new XMLHttpRequest();
+		    } else if (window.ActiveXObject) {
+		        xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+		    } else if(xmlHttp==null) {
+		        alert("Browser does not support XMLHTTP Request");
+		        return;
+		    }
+			
+			xmlHttp.onreadystatechange = stateChange1;
+	    	xmlHttp.open("GET", url, true);
+			xmlHttp.send(null);  
+		}
+		
+		function stateChange1() {
+			 if (xmlHttp.readyState==4||xmlHttp.readyState=="complete") {
+				 var str = xmlHttp.responseText;
+				 str = str.trim();
+				 
+				 if (str == "false") {
+					 //show the modal that cashup declaration is already done for this toll transaction
+					 var modal = document.getElementById('myModal');
+					 modal.style.display = "block";
+				 } else {
+					 if (str == "logged_out") logout();
+					 else window.location = "${pageContext.request.contextPath}/tollTransaction/cancelTicket?transactionId="+g_transactionId;
+				 }
+			 } 
+		}
+		
+		function f1() {
+			var modal = document.getElementById('myModal');
+			 modal.style.display = "none";
+		}
+		
 		
 		function getReport() {
 			
@@ -61,7 +145,7 @@
 			
 			var from = document.getElementById("from").value;
 			//we removed this later
-			/* if (from == "") {
+			if (from == "") {
 				document.getElementById("sp_from").removeAttribute("class");
 				document.getElementById("sp_from").setAttribute("class", "error_show");
 				from_error = true;
@@ -70,7 +154,7 @@
 				document.getElementById("sp_from").removeAttribute("class");
 				document.getElementById("sp_from").setAttribute("class", "error");
 				from_error = false;
-			} */
+			} 
 			
 			var vnumber = document.getElementById("vnumber").value.trim();
 			var vnumerror = false;
@@ -233,7 +317,7 @@
 
 				
 				<span>
-					<span class="error" id="sp_from">Please, Enter Date</span>
+					<!-- <span class="error" id="sp_from">Please, Enter Date</span> -->
 					<span class="error" id="sp_stTime">Please, Enter start time</span>
 					<span class="error" id="sp_edTime">Please, Enter end time</span>
 					<span class="error" id="sp_timeErr">End time should be greater than start time</span>
@@ -257,6 +341,7 @@
 						<div class="col-md-3" style="margin-top: 10px">
 							<label>Date.</label>
 							<input type="date" id="from" name="from"  max="${today}" style="background-color: #000;background:#474747 url(${pageContext.request.contextPath}/resources/images/Calendar.png)  97% 50% no-repeat ;"/>
+							<span class="error" id="sp_from">Please, Enter Date</span>
 						</div>
 						
 						<div class="col-md-4">
@@ -302,6 +387,7 @@
 						</div>
 						
 					</div>
+					<!-- <input id="datetime" type="datetime-local" style="background: black" onchange="alert(this.value)"> -->
 					
 					<input type="button" value="Submit" onClick="getReport()" class="inp1" style="margin-top:15px; margin-left: -100px"/>
 					
@@ -339,6 +425,25 @@
 		<%-- hidden content --%>
 		<div id="hidden_content" style="display: none">
 
+		</div>
+		
+			<!-- The Modal -->
+		<div id="myModal" class="modal" style="">
+		
+		  <!-- Modal content -->
+		  <div class="modal-content" style="position:relative; top:25%;left: -50px; max-width: 300px; margin-left: 30%; background-color: #b9b9b9">
+		  	<!-- uncomment this if you want cross on the top right -->
+		    <!-- <span class="close">&times;</span> -->
+		    <p>Sorry! Cashup is done for this Transaction.</p>
+		    	
+		    <div class="row">				
+				<div class="col-xs-5" style="margin-left: 30%">
+					<input type="button" class="inp1" value="OK" id="yes" onclick="f1()" style="max-width: 80%"/>
+				</div>
+				
+			</div>
+		  </div>
+		
 		</div>
 		
 		<script>

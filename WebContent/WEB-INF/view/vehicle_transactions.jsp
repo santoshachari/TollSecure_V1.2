@@ -67,7 +67,7 @@ td {
 			<td style="color: #000000">${tempTransaction[3]}</td>
 			<td style="color: #000000">${tempTransaction[4]}</td>
 			<td>${tempTransaction[5]}</td>
-			<td style="color: #000000"><a href="${cancelLink}">Cancel</a></td>
+			<td style="color: #000000"><a href="#" onclick="checkTransactionAndCancel('${tempTransaction[0]}')">Cancel</a></td>
 		</tr>
 	</c:forEach>
 	

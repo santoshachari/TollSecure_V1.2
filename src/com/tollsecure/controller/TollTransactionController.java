@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.tollsecure.entity.Cashup;
 import com.tollsecure.entity.ConcessionVehicles;
 import com.tollsecure.entity.Exempt;
 import com.tollsecure.entity.FloatAmountDetails;
@@ -37,6 +38,7 @@ import com.tollsecure.entity.TollPlaza;
 import com.tollsecure.entity.TollTransaction;
 import com.tollsecure.entity.User;
 import com.tollsecure.entity.VehicleTracking;
+import com.tollsecure.service.CashupService;
 import com.tollsecure.service.ConcessionVehiclesService;
 import com.tollsecure.service.ExemptService;
 import com.tollsecure.service.FloatAmountDetailsService;
@@ -90,6 +92,9 @@ public class TollTransactionController {
 	
 	@Autowired
 	private FloatAmountDetailsService theFloatAmountDetailsService;
+	
+	@Autowired
+	private CashupService theCashupService;
 	
 	//gives the list of toll entries till f=date in a tabular form
 	@GetMapping("/tollEntriesList")
@@ -1455,6 +1460,35 @@ public class TollTransactionController {
 		}
 		
 		return "isUpdated";
+	}
+	
+	@GetMapping("/checkIfCashUpIsDone")
+	public String checkIfCashUpIsDone (HttpServletRequest request, Model theModel,HttpSession session) {
+		
+		//handling session
+		User userFromSession = (User) session.getAttribute("userFromSession");
+		if(userFromSession==null) return "blank_page1";
+		if(!userFromSession.getUserRole().equals("Admin") && !userFromSession.getUserRole().equals("Supervisor")) return "blank_page1"; 
+		
+		//get the start and end time with dates
+		String transactionId = request.getParameter("transactionId");
+		
+		//get the transaction
+		TollTransaction tollTransaction = tollTransactionService.getTollTransactionFromId(transactionId);
+		
+		//get the id of the cashup record for the given transaction
+		if (tollTransaction != null) {
+			Cashup cashup = theCashupService.getCashUpIfExists(tollTransaction.getTransactionTimeStamp().toString().split(" ")[0], tollTransaction.getLaneId(), tollTransaction.getShiftId());
+			
+			if (cashup == null) { //cash up not done
+				return "true";
+			} else {
+				return "false";
+			}
+		} else { //we cannot cancel it as it does not exist (we wont enter here normally
+			return "false";
+		}
+	
 	}
 }
 

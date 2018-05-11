@@ -97,6 +97,48 @@
     }
 }
 </style>
+
+<style>
+	/*Styles for cancel and search modals*/
+	/* The Modal (background) */
+	.modal {
+	    display: none; /* Hidden by default */
+	    position: fixed; /* Stay in place */
+	    z-index: 1; /* Sit on top */
+	    padding-top: 100px; /* Location of the box */
+	    left: 0;
+	    top: 0;
+	    width: 100%; /* Full width */
+	    height: 100%; /* Full height */
+	    overflow: auto; /* Enable scroll if needed */
+	    background-color: rgb(0,0,0); /* Fallback color */
+	    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+	}
+	
+	/* Modal Content */
+	.modal-content {
+	    background-color: #fefefe;
+	    margin: auto;
+	    padding: 20px;
+	    border: 1px solid #888;
+	    width: 80%;
+	}
+	
+	/* The Close Button */
+	.close {
+	    color: #aaaaaa;
+	    float: right;
+	    font-size: 28px;
+	    font-weight: bold;
+	}
+	
+	.close:hover,
+	.close:focus {
+	    color: #000;
+	    text-decoration: none;
+	    cursor: pointer;
+	}
+</style>
 	<title>Cancel Ticket</title>
 	
 	<!-- fevicon -->
@@ -117,6 +159,47 @@
 		
 		var xmlHttp;
 		
+		function ckeckAndSearch() {
+			
+			var ticketNo = document.getElementById("tno").value;
+			
+			var url = "${pageContext.request.contextPath}/tollTransaction/checkIfCashUpIsDone?transactionId="+ticketNo;
+			
+			if (typeof XMLHttpRequest != "undefined") {
+		        xmlHttp = new XMLHttpRequest();
+		    } else if (window.ActiveXObject) {
+		        xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+		    } else if(xmlHttp==null) {
+		        alert("Browser does not support XMLHTTP Request");
+		        return;
+		    }
+			
+			xmlHttp.onreadystatechange = stateChange1;
+	    	xmlHttp.open("GET", url, true);
+			xmlHttp.send(null); 
+		}
+		
+		function stateChange1() {
+			if (xmlHttp.readyState==4||xmlHttp.readyState=="complete") {
+				 var str = xmlHttp.responseText;
+				 str = str.trim();
+				 if (str == "false") {
+					 //show the modal that cashup declaration is already done for this toll transaction
+					 
+					 var modal = document.getElementById('myModal1');
+					 modal.style.display = "block";
+				 } else {
+					 if (str == "logged_out") window.location.href = "${pageContext.request.contextPath}/index/logout";
+					 else searchTicket();
+				 }
+			 } 
+		}
+		
+		function f1() {
+			var modal = document.getElementById('myModal1');
+			 modal.style.display = "none";
+		}
+		
 		function ssearchTicket() {
 			var tnoForSearch = document.getElementById("stno").value;
 			var terror1 = false;
@@ -134,7 +217,7 @@
 			
 			if (!terror1) {
 				document.getElementById("tno").value = document.getElementById("stno").value;
-				searchTicket();
+				ckeckAndSearch();
 			}
 		}
 		
@@ -250,6 +333,7 @@
 			 }
 		}
 		
+		
 		function scancelTic() {
 			document.getElementById("tnum").value = document.getElementById("stnum").value;
 			document.getElementById("comment").value = document.getElementById("scomment").value;
@@ -296,8 +380,20 @@
 			}
 			
 			if (!terror1 && !commentError) {
-				window.location.href = "${pageContext.request.contextPath}/tollTransaction/cancelTicket1?tno="+ticketNumber+"&comments="+remark;
+				var modal = document.getElementById('myModal2');
+				modal.style.display = "block";
 			} 
+		}
+		
+		function f2() {
+			var ticketNumber = document.getElementById("tnum").value.trim();
+			var remark = document.getElementById("comment").value.trim();
+			window.location.href = "${pageContext.request.contextPath}/tollTransaction/cancelTicket1?tno="+ticketNumber+"&comments="+remark;
+		}
+		
+		function f3() {
+			var modal = document.getElementById('myModal2');
+			modal.style.display = "none";
 		}
 	</script>
 </head>
@@ -345,7 +441,7 @@
 
 				<div class="col-md-5">
 					<label>Ticket Number. </label><input type="text" value="${tollTransaction.ticketCode}" id="tno" class="head_inp" name="">
-					<input type="button" class="inp1" value="Search" onclick="searchTicket()">
+					<input type="button" class="inp1" value="Search" onclick="ckeckAndSearch()">
 					<div class="error" id="terror">Please enter a valid ticket number</div>
 				</div>
 			</div>
@@ -534,6 +630,53 @@
   <img class="modal-content" id="img01" width="700" height="500">
   <div id="caption"></div>
 </div>
+
+
+<!-- modal for search button -->
+	<!-- The Modal -->
+		<div id="myModal1" class="modal" style="">
+		
+		  <!-- Modal content -->
+		  <div class="modal-content" style="position:relative; top:25%;left: -50px; max-width: 300px; margin-left: 35%; background-color: #b9b9b9">
+		  	<!-- uncomment this if you want cross on the top right -->
+		    <!-- <span class="close">&times;</span> -->
+		    <p>Sorry! Cashup is done for this Transaction.</p>
+		    	
+		    <div class="row">				
+				<div class="col-xs-5" style="margin-left: 30%">
+					<input type="button" class="inp1" value="OK" id="" onclick="f1()" style="max-width: 80%"/>
+				</div>
+				
+			</div>
+		  </div>
+		
+		</div>
+		
+<!-- modal for Cancel button -->
+	<!-- The Modal -->
+		<div id="myModal2" class="modal" style="">
+		
+		  <!-- Modal content -->
+		  <div class="modal-content" style="position:relative; top:25%;left: -50px; max-width: 300px; margin-left: 30%; background-color: #b9b9b9">
+		  	<!-- uncomment this if you want cross on the top right -->
+		    <!-- <span class="close">&times;</span> -->
+		    <p>Are you. Do you want to cancel?</p>
+		    	
+		    <div class="row">				
+				<div class="col-xs-5">
+					<input type="button" class="inp1" value="Yes" id="yes" onclick="f2()" style="max-width: 80%"/>
+				</div>
+				
+				<div class="col-xs-5">
+					<input type="button" class="inp1" value="No" id="No" onclick="f3()" style="max-width: 80%; background-color: #6f7070;"/>
+				</div>
+				
+			</div>
+		  </div>
+		
+		</div>
+		
+	
 
 <script>
 // Get the modal
