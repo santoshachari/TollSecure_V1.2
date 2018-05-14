@@ -88,9 +88,9 @@
 	var to = "";
 	
 	if (tofrom!=undefined) {
-		to_from = tofrom.text.split(" ");
+		to_from = tofrom.text.split("TO");
 		from = to_from[0];
-		to = to_from[2]; 
+		to = to_from[1]; 
 		
 		//in case of errors remove them
 		document.getElementById("sp_updateLane").removeAttribute("class");

@@ -403,6 +403,8 @@ span.onclick = function() {
 
 <script>
 	function setImageSource(str) {
+		document.getElementById("img1").src="";
+		document.getElementById("simg1").src="";
 		document.getElementById("img1").src = "${pageContext.request.contextPath}/vehicleImages/"+str;
 		document.getElementById("simg1").src = "${pageContext.request.contextPath}/vehicleImages/"+str;
 	}

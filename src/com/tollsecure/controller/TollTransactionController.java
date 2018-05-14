@@ -1478,7 +1478,6 @@ public class TollTransactionController {
 		//if transactionId is empty then it is coming from search button of cancel transaction page
 		if(transactionId == null || transactionId.equals("")) {
 			tollTransaction = tollTransactionService.getTollTransactionFromCode(transactionCode);
-			System.out.println(">>>>>>>>"+tollTransaction);
 		} else {
 			//get the transaction
 			tollTransaction = tollTransactionService.getTollTransactionFromId(transactionId);
