@@ -163,6 +163,22 @@
 			
 			var ticketNo = document.getElementById("tno").value;
 			
+			if (ticketNo=="") {
+				document.getElementById("sterror").removeAttribute("class");
+				document.getElementById("sterror").setAttribute("class", "error_show");
+				
+				document.getElementById("terror").removeAttribute("class");
+				document.getElementById("terror").setAttribute("class", "error_show");
+				
+				return;
+			} else {
+				document.getElementById("sterror").removeAttribute("class");
+				document.getElementById("sterror").setAttribute("class", "error");
+				
+				document.getElementById("terror").removeAttribute("class");
+				document.getElementById("terror").setAttribute("class", "error_show");
+			}
+			
 			var url = "${pageContext.request.contextPath}/tollTransaction/checkIfCashUpIsDone?transactionCode="+ticketNo;
 			
 			if (typeof XMLHttpRequest != "undefined") {
