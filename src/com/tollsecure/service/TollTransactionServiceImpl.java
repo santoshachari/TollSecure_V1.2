@@ -114,4 +114,12 @@ public class TollTransactionServiceImpl implements TollTransactionService {
 		return tollTransactionDAO.getImageTransaction(transactionId);
 	}
 
+
+	@Override
+	@Transactional
+	public TollTransaction getTollTransactionFromCode(String transactionCode) {
+		// TODO Auto-generated method stub
+		return tollTransactionDAO.getTollTransactionFromCode(transactionCode);
+	}
+
 }

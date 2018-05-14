@@ -36,4 +36,6 @@ public interface TollTransactionDAO {
 	public TollTransaction getImageTransaction();
 
 	public List<Object[]> getImageTransaction(String transactionId);
+
+	public TollTransaction getTollTransactionFromCode(String transactionCode);
 }

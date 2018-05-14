@@ -1472,9 +1472,19 @@ public class TollTransactionController {
 		
 		//get the start and end time with dates
 		String transactionId = request.getParameter("transactionId");
+		String transactionCode = request.getParameter("transactionCode");
+		TollTransaction tollTransaction = null;
 		
-		//get the transaction
-		TollTransaction tollTransaction = tollTransactionService.getTollTransactionFromId(transactionId);
+		//if transactionId is empty then it is coming from search button of cancel transaction page
+		if(transactionId == null || transactionId.equals("")) {
+			tollTransaction = tollTransactionService.getTollTransactionFromCode(transactionCode);
+			System.out.println(">>>>>>>>"+tollTransaction);
+		} else {
+			//get the transaction
+			tollTransaction = tollTransactionService.getTollTransactionFromId(transactionId);
+		}
+		
+		
 		
 		//get the id of the cashup record for the given transaction
 		if (tollTransaction != null) {
@@ -1483,9 +1493,11 @@ public class TollTransactionController {
 			if (cashup == null) { //cash up not done
 				return "true";
 			} else {
+				theModel.addAttribute("err", "<p style='color: red'>Sorry! Cashup is done for this Transaction.</p>");
 				return "false";
 			}
 		} else { //we cannot cancel it as it does not exist (we wont enter here normally
+			theModel.addAttribute("err", "<p style='color: red'>Sorry! Ticket doesnot exist.</p>");
 			return "false";
 		}
 	

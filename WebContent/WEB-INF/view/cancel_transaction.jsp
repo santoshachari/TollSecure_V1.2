@@ -163,7 +163,7 @@
 			
 			var ticketNo = document.getElementById("tno").value;
 			
-			var url = "${pageContext.request.contextPath}/tollTransaction/checkIfCashUpIsDone?transactionId="+ticketNo;
+			var url = "${pageContext.request.contextPath}/tollTransaction/checkIfCashUpIsDone?transactionCode="+ticketNo;
 			
 			if (typeof XMLHttpRequest != "undefined") {
 		        xmlHttp = new XMLHttpRequest();
@@ -182,10 +182,10 @@
 		function stateChange1() {
 			if (xmlHttp.readyState==4||xmlHttp.readyState=="complete") {
 				 var str = xmlHttp.responseText;
-				 str = str.trim();
-				 if (str == "false") {
+				 str = str.trim().split("-");
+				 if (str[0] == "false") {
 					 //show the modal that cashup declaration is already done for this toll transaction
-					 
+					 document.getElementById("search-modal-content").innerHTML=str[1];
 					 var modal = document.getElementById('myModal1');
 					 modal.style.display = "block";
 				 } else {
@@ -640,7 +640,7 @@
 		  <div class="modal-content" style="position:relative; top:25%;left: -50px; max-width: 300px; margin-left: 35%; background-color: #b9b9b9">
 		  	<!-- uncomment this if you want cross on the top right -->
 		    <!-- <span class="close">&times;</span> -->
-		    <p>Sorry! Cashup is done for this Transaction.</p>
+		    <div id="search-modal-content"></div> 
 		    	
 		    <div class="row">				
 				<div class="col-xs-5" style="margin-left: 30%">

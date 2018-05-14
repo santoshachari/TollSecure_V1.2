@@ -117,9 +117,9 @@
 		function stateChange1() {
 			 if (xmlHttp.readyState==4||xmlHttp.readyState=="complete") {
 				 var str = xmlHttp.responseText;
-				 str = str.trim();
+				 str = str.trim().split("-");
 				 
-				 if (str == "false") {
+				 if (str[0] == "false") {
 					 //show the modal that cashup declaration is already done for this toll transaction
 					 var modal = document.getElementById('myModal');
 					 modal.style.display = "block";

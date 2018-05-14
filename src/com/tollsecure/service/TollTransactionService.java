@@ -37,5 +37,7 @@ public interface TollTransactionService {
 
 	public List<Object[]> getTransactionDetails(String transactionId);
 
+	public TollTransaction getTollTransactionFromCode(String transactionCode);
+
 
 }

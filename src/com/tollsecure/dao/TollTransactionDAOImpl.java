@@ -492,6 +492,20 @@ public class TollTransactionDAOImpl implements TollTransactionDAO {
 		
 		return transaction;
 	}
+
+	@Override
+	public TollTransaction getTollTransactionFromCode(String transactionCode) {
+		// get the current hibernate session
+		Session currentSession = sessionFactory.getCurrentSession();
+				
+		//create a query
+		Query<TollTransaction> theQuery = currentSession.createQuery("from TollTransaction where ticketCode='"+transactionCode+"'", TollTransaction.class);
+		
+		List<TollTransaction> theTollTransaction = theQuery.getResultList();
+		
+		if (theTollTransaction.isEmpty()) return null;
+		return theTollTransaction.get(0);
+	}
 }
 
 
