@@ -1,4 +1,4 @@
-package com.seoniproject.testdb;
+package com.tollsecure.testdb;
 
 import java.io.IOException;
 import java.io.PrintWriter;
