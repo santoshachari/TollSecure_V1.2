@@ -196,6 +196,16 @@ System.out.println();
 		String laneDirection = request.getParameter("laneDirection").toUpperCase(); 
 		String nooflanes1 = request.getParameter("nooflanes");
 		
+		//check if both directions are same and return error if they are
+		System.out.println(laneDirection.split("TO")[0]+">>>>>>>>"+laneDirection.split("TO")[1]+">>>>>>>>");
+		if(laneDirection.split("TO")[0].trim().equals(laneDirection.split("TO")[1].trim())) { //this is also handled in frontend
+			theModel.addAttribute("error", "Destination cannot be source for a lane");
+			if (plazaId1!=null) {
+				theModel.addAttribute("tollPlazaId", plazaId1);
+			}
+			return "redirect:/lane/showFormForAdd";
+		}
+		
 		Integer plazaId = null;
 		Integer nooflanes = null;
 		List<Lane> lanesWithAllDirections = null;

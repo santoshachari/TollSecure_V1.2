@@ -676,7 +676,7 @@
 		  <div class="modal-content" style="position:relative; top:25%;left: -50px; max-width: 300px; margin-left: 30%; background-color: #b9b9b9">
 		  	<!-- uncomment this if you want cross on the top right -->
 		    <!-- <span class="close">&times;</span> -->
-		    <p>Are you. Do you want to cancel?</p>
+		    <p>Are you sure. Do you want to cancel?</p>
 		    	
 		    <div class="row">				
 				<div class="col-xs-5">

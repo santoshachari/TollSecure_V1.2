@@ -19,10 +19,12 @@ function submit1() {
 	
 	var from = document.getElementById("from").value.trim();
 	var to = document.getElementById("to").value.trim();
+
+	
 	var direction = from+" To "+to;
 	document.getElementById("ldir").value=direction;
 	direction = direction.trim();
-	if (from==null || from=="" || to=="" || to==null || direction==null || direction=="") {
+	if (from==null || from=="" || to=="" || to==null || direction==null || direction=="" || to == from) {
 		document.getElementById("sp_laneDirection").removeAttribute("class");
 		document.getElementById("sp_laneDirection").setAttribute("class", "error_show"); 
 		
