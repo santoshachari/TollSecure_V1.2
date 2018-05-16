@@ -457,6 +457,7 @@
 				 var prevAmt = document.getElementById("ram").innerHTML.split(" ")[1];
 				 var prevTime = document.getElementById("rti").innerHTML.split(" ")[2];
 				 
+				 
 				 if (prevVc=="CAR/") {
 					 prevVc = "CAR/ JEEP";
 				 } else if (prevVc=="BUS/") {
@@ -480,20 +481,33 @@
 		         } 
 	
 				 if (cashtype=="Cash") {
-					 window.print();
-					 //location.reload();
+					 
+					//but barcode image is not getting enough time to load in chrome
+				    setTimeout(function () { // wait until all resources loaded 
+				       window.print();  // change window to winPrint
+				       
+				       ///null the receipt so that he doesn't print it again and again
+					   document.getElementById("receipt").innerHTML = "";
+
+//location.reload();
 					 //after printing refresh remaining time
 					 refreshRemainingTime();
+
+				    }, 250);
+
+					 
+					
+					 
 				 } else {
 				 	document.getElementById("cash").checked = true;
-				 }
-				 
+				 	document.getElementById("receipt").innerHTML = "";
+				 }			 
 				 //because mozilla is not refreshing
 				 document.getElementById("exempted").disabled=false;
 				 document.getElementById("pass").disabled=false;
 				 
 				 ///null the receipt so that he doesn't print it again and again
-				 document.getElementById("receipt").innerHTML = "";
+				 // document.getElementById("receipt").innerHTML = "";
 				 
 				 //previously we user to reload the page but not now
 				 //alert("Receipt Printed");

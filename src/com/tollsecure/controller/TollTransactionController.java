@@ -1,8 +1,13 @@
 package com.tollsecure.controller;
+//for barcode image
+import java.awt.image.BufferedImage;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,6 +22,8 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.krysalis.barcode4j.impl.code128.Code128Bean;
+import org.krysalis.barcode4j.output.bitmap.BitmapCanvasProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,6 +58,8 @@ import com.tollsecure.service.TollPlazaService;
 import com.tollsecure.service.TollTransactionService;
 import com.tollsecure.service.UserService;
 import com.tollsecure.service.VehicleTrackingService;
+
+
 
 @Controller
 @RequestMapping("/tollTransaction")
@@ -95,6 +104,30 @@ public class TollTransactionController {
 	
 	@Autowired
 	private CashupService theCashupService;
+	
+	//Bar-code image generator
+	public void createImage(String image_name,String myString)  {
+		try {
+		Code128Bean code128 = new Code128Bean();
+		code128.setHeight(15f);
+		code128.setModuleWidth(0.3);
+		code128.setQuietZone(10);
+		code128.doQuietZone(true);
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		BitmapCanvasProvider canvas = new BitmapCanvasProvider(baos, "image/x-png", 300, BufferedImage.TYPE_BYTE_BINARY, false, 0);
+		code128.generateBarcode(canvas, myString);
+		canvas.finish();
+		//write to png file "C:\\Users\\MIRITPC\\Desktop\\jas\\New folder\\" /home/anjan/Downloads/Eclipse_Workspaces/
+		FileOutputStream fos = new FileOutputStream("C:\\TollSecure\\barCodes\\"+image_name);
+		fos.write(baos.toByteArray());
+		fos.flush();
+		fos.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(">>>>>>>>>>>Barcode image file not generated due to: "+e);
+		}
+	}
+	
 	
 	//gives the list of toll entries till f=date in a tabular form
 	@GetMapping("/tollEntriesList")
@@ -672,6 +705,40 @@ public class TollTransactionController {
 		//command = "curl -o C:\\TollSecure\\vehicleImages\\"+today+"\\"+ticketCode+".jpeg  --user admin:123 --request GET http://10.0.2.25/cgi-bin/snapshot.cgi?channel=1";
 //		command = "curl -o C:\\TollSecure\\vehicleImages\\"+today+"\\"+ticketCode+".jpeg  --user anjan:anjan123 --request GET http://10.0.0.89/cgi-bin/snapshot.cgi?channel=2";
 
+		//Bar code generator code below
+		//keep it before saving because it stops saving in case of exception
+		createImage(vnum+".png", vnum);
+		File barcodeFile = new File("C:\\TollSecure\\barCodes\\"+vnum+".png");
+		System.out.println(">>>>>>>>Barcode File length: "+barcodeFile.length());
+		System.out.println(">>>>>>>>Barcode File length: ==0"+(barcodeFile.length()==0));
+		if (!barcodeFile.exists() || barcodeFile.length()==0)
+			try {
+				TimeUnit.SECONDS.sleep(2);
+				System.out.println(">>>>Waiting for 2 seconds");
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				System.out.println(">>>>exception at Waiting for 2 seconds");
+			}
+		if (!barcodeFile.exists() || barcodeFile.length()==0)
+			try {
+				TimeUnit.SECONDS.sleep(2);
+				System.out.println(">>>>Waiting for 2 seconds");
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				System.out.println(">>>>exception at Waiting for 2 seconds");
+			}
+		if (!barcodeFile.exists() || barcodeFile.length()==0)
+			try {
+				TimeUnit.SECONDS.sleep(2);
+				System.out.println(">>>>Waiting for 2 seconds");
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				System.out.println(">>>>exception at Waiting for 2 seconds");
+			}
+		
 		
 		/**
 		 * This is commented in case of testing if there is no camera installed 
@@ -800,6 +867,7 @@ public class TollTransactionController {
 			theTollTransaction.setExemptId(lastExempt.getExemptId());
 		}
 		
+		
 		//save the tollTransaction using our service
 		tollTransactionService.saveTollTransaction(theTollTransaction);
 		
@@ -840,12 +908,14 @@ public class TollTransactionController {
 		//get vehicle class
 		//String vehicleClass = tollConfigService.getLastTrollTransactionVehicleClass(savedOne.getVehicleClassId());
 		
-		
-		
 		///go to the receipt
 		theModel.addAttribute("savedOne", savedOne);
 		theModel.addAttribute("laneCode", laneCode);
 		theModel.addAttribute("vehicleClass", vehicleClass);
+		
+		//bar code image address
+		theModel.addAttribute("barcodeImage", "/barCodes/"+vnum+".png");
+		
 		return "receipt";
 	}
 	

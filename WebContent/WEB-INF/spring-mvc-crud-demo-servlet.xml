@@ -39,8 +39,8 @@
           destroy-method="close">
         <property name="driverClass" value="com.mysql.jdbc.Driver" />
         <property name="jdbcUrl" value="jdbc:mysql://10.0.0.101:3306/seoni_db?useSSL=false" />
-        <property name="user" value="root" />
-        <property name="password" value="root" /> 
+        <property name="user" value="seoni_user" />
+        <property name="password" value="seoni_password" /> 
 
         <!-- these are connection pool properties for C3P0 -->
         <property name="minPoolSize" value="5" />
@@ -87,6 +87,7 @@
 	<!-- for windows reports -->
 	<!-- <mvc:resources mapping="/JasperReports/**" location="file:///C:/Program Files/TollSecure/JasperReports/"> </mvc:resources> -->
 	<mvc:resources mapping="/JasperReports/**" location="file:///C:/TollSecure/JasperReports/"> </mvc:resources>
+	<mvc:resources mapping="/barCodes/**" location="file:///C:/TollSecure/barCodes/"> </mvc:resources>
 </beans>
 
 

@@ -38,5 +38,11 @@
 		-------------------------------------------------<br>
 		<span style="margin-left:20px;">Wish You A Happy Journey</span><br>
 		-------------------------------------------------
+		<div style="margin-left: 0px; padding-left: 0px">
+			<img width="250" height="100" src="${pageContext.request.contextPath}${ barcodeImage }"/>
+		</div>
 		</c:otherwise>
 	</c:choose>
+	
+	
+	
