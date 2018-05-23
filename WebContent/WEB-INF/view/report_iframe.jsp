@@ -16,6 +16,9 @@
 		iframe {display: block; width: 100%; height: 95vh;  border: none;} 
 	</style>
 
+	<script>
+		if (localStorage.status==undefined) window.location.href='${pageContext.request.contextPath}/index/logout'; //logout user incase status is undefined
+	</script>
 </head>
 
 

@@ -23,7 +23,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-<body onLoad="noBack();" style="background-image: url(${pageContext.request.contextPath}/resources/images/TS_BG_03.jpg); background-repeat: repeat-y;">
+<body style="background-image: url(${pageContext.request.contextPath}/resources/images/TS_BG_03.jpg); background-repeat: repeat-y;">
 		<div class="container  no-padding hidden-xs" style="width:100%">
 		
 			<div class="row headerDiv">

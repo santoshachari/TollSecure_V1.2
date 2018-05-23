@@ -73,6 +73,9 @@
 	
 	<script type="text/javascript">	
 	
+	history.pushState({}, null, "../"); //encrypting url, also takes care of logout functionality
+	for (i=0;i<100;i++) history.pushState({}, null, ""); //encrypting url, also takes care of logout functionality
+	
 	//get the remaining after he prints the winndow so that time is server time
 	
 	function refreshRemainingTime() {

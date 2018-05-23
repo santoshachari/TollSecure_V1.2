@@ -94,6 +94,8 @@
 		//prevents right click
 		//document.addEventListener('contextmenu', event = event.preventDefault());
 		
+		if (localStorage.status==undefined) logout(); //logout user incase status is undefined
+		
 		var g_transactionId = null;
 		
 		function checkTransactionAndCancel(transactionId) {
@@ -208,7 +210,7 @@
 				document.getElementById("sp_timeErr").setAttribute("class", "error");
 			}
 			
-			if (! from_error && ! vnumerror & !stTimeErr && !edTimeErr && !dteErr) {
+			if (!from_error && ! vnumerror & !stTimeErr && !edTimeErr && !dteErr) {
 				
 				if (typeof XMLHttpRequest != "undefined") {
 			        xmlHttp = new XMLHttpRequest();
@@ -247,6 +249,12 @@
 			 if (xmlHttp.readyState==4||xmlHttp.readyState=="complete") {
 				 var str = xmlHttp.responseText;
 				 str = str.trim();
+				 
+				 //if logged_out the log out
+				 if (str == "logged_out") {
+					 logout();
+				 }
+				 
 				 document.getElementById("loading").style.display = "none";
 				 document.getElementById("demo").innerHTML = str;
 				 document.getElementById("sdemo").innerHTML = str;
@@ -260,6 +268,7 @@
 		
 		//for logging out
 		function logout() {
+			localStorage.clear();
 			window.location.href = "${pageContext.request.contextPath}/index/logout";
 		}
 		
@@ -285,7 +294,7 @@
 					</div>
 					<div class="col-xs-4" style="position: relative; top: 25px; left: 40px;">
 						<span style="margin-right: 10px;"><!--Contact: 9999999999 --></span>
-						<input type="button" value="Signout" class="signout hidden-xs" onclick="window.location.href='${pageContext.request.contextPath}/index/logout';">
+						<input type="button" value="Signout" class="signout hidden-xs" onclick="localStorage.clear();window.location.href='${pageContext.request.contextPath}/index/logout';">
 					</div>
 				</div>
 			</div>
@@ -294,7 +303,7 @@
 		<div class="row visible-xs">
 			<div class="col-xs-12" style="background-color: #ee9620">
 				<img src='${pageContext.request.contextPath}/resources/images/TS_Logo_hdpi.png' alt='TollSecure - Securing Toll Business' style="margin-left: 15%; margin-bottom: 10%" width="60%"/>
-				<input type="image" src="${pageContext.request.contextPath}/resources/images/mono-logout.svg" alt="Signout" width="28" height="28" style="margin-left: 15%" onclick="window.location.href='${pageContext.request.contextPath}/index/logout';">
+				<input type="image" src="${pageContext.request.contextPath}/resources/images/mono-logout.svg" alt="Signout" width="28" height="28" style="margin-left: 15%" onclick="localStorage.clear();window.location.href='${pageContext.request.contextPath}/index/logout';">
 				<br><span style="margin-left:25%">Vehicle Search</span>
 			</div>
 		</div>
@@ -453,5 +462,4 @@
 			getReport();
 		} 
 		</script>
-		
 </body>

@@ -6,8 +6,9 @@
 <head>
 
 <script>
-//prevents right click
-//document.addEventListener('contextmenu', event => event.preventDefault());
+	//prevents right click
+	//document.addEventListener('contextmenu', event => event.preventDefault());
+	for(i=0;i<100;i++)history.pushState({}, null, "loginUser"); //encrypting url, also takes care of logout functionality
 </script>
 
 <title>Admin - Home</title>
@@ -86,7 +87,8 @@
 </script>
     
 </head>
-<body style="background-image: url(${pageContext.request.contextPath}/resources/images/TS_BG_03.jpg)" class="visible-sm visible-lg visible-md hidden-xs">
+
+<body onload="checkAndSetSession()" style="background-image: url(${pageContext.request.contextPath}/resources/images/TS_BG_03.jpg)" class="visible-sm visible-lg visible-md hidden-xs">
 	<div class="container nopadding">
 		
 		<div class="row">
@@ -101,7 +103,7 @@
 						</div>
 						<div class="col-xs-4" style="position: relative; top: 25px; left: 40px;">
 							<span style="margin-right: 10px;"><!--Contact: 9999999999 --></span>
-							<input type="button" value="Signout" class="signout" style="margin-left: 15%;" onclick="window.location.href='${pageContext.request.contextPath}/index/logout';">
+							<input type="button" value="Signout" class="signout" style="margin-left: 15%;" onclick="localStorage.clear();window.location.href='${pageContext.request.contextPath}/index/logout';">
 						</div>
 					</div>
 				</div>
@@ -390,7 +392,7 @@
 		  
 		  
 		  				<div hidden id="tabnumber">${tabNumber}</div>
-				
+	</body>
 				
 	<script type="text/javascript">
 		var tab_no = document.getElementById("tabnumber").innerHTML;
@@ -405,6 +407,12 @@
             }).eq(tab_no).mouseover();
         });
     </script>
+    
+    <script>
+    	//handling user logging using localStorage
+    	localStorage.setItem("status", true);
+    </script>
+    
 </html>
 
 

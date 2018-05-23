@@ -13,6 +13,11 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Admin Home Mobile</title>
 		<script src="${pageContext.request.contextPath}/resources/js/jQuery.js"></script>
+		<script>
+			//prevents right click
+			//document.addEventListener('contextmenu', event => event.preventDefault());
+			for(i=0;i<100;i++)history.pushState({}, null, "loginUser"); //encrypting url, also takes care of logout functionality
+		</script>
 		<script type="text/javascript">
 
 		
@@ -287,7 +292,7 @@
 							<div>
 							<img src='${pageContext.request.contextPath}/resources/images/TS_Logo_hdpi.png' alt='TollSecure - Securing Toll Business' width="60%"/>
 							<input type="image" value="" class="" style="margin-left: 15%;">
-							<input type="image" src="${pageContext.request.contextPath}/resources/images/mono-logout.svg" alt="Signout" width="28" height="28"  onclick="window.location.href='${pageContext.request.contextPath}/index/logout';">
+							<input type="image" src="${pageContext.request.contextPath}/resources/images/mono-logout.svg" alt="Signout" width="28" height="28"  onclick="localStorage.clear();window.location.href='${pageContext.request.contextPath}/index/logout';">
 							</div>
 						</header>
 						<div class="content clearfix" style="margin-top: 0%; width: 100%; padding: 0%">
@@ -305,5 +310,11 @@
 		<script>
 			new mlPushMenu( document.getElementById( 'mp-menu' ), document.getElementById( 'trigger' ) );
 		</script>
+		
+		<script>
+	    	//handling user logging using localStorage
+	    	localStorage.setItem("status", true);
+    	</script>
+    
 	</body>
 </html>

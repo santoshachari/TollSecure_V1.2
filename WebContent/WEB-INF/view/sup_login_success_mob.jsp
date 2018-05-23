@@ -33,6 +33,8 @@
 			 if(!/Mobile/i.test(navigator.userAgent) && /ipad/i.test(navigator.userAgent) ){
 				 window.location = "${pageContext.request.contextPath}/index/h0me";
 			    }
+			 
+			 for(i=0;i<100;i++)history.pushState({}, null, "loginUser"); //encrypting url, also takes care of logout functionality
 		</script>
 		
 		<!-- for icons -->
@@ -311,4 +313,10 @@
 			new mlPushMenu( document.getElementById( 'mp-menu' ), document.getElementById( 'trigger' ) );
 		</script>
 	</body>
+	
+	<script>
+    	//handling user logging using localStorage
+    	localStorage.setItem("status", true);
+    </script>
+    
 </html>

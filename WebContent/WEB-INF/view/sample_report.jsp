@@ -12,6 +12,8 @@
 		//prevents right click
 		//document.addEventListener('contextmenu', event = event.preventDefault());
 	
+		if (localStorage.status==undefined) window.location.href='${pageContext.request.contextPath}/index/logout'; //logout user incase status is undefined
+		
 		function getReport() {
 				var user_id = document.getElementById("user").value;
 				//create an url
@@ -61,7 +63,7 @@
 					</div>
 					<div class="col-xs-4" style="position: relative; top: 25px; left: 40px;">
 						<span style="margin-right: 10px;">Contact: 9999999999</span>
-						<input type="button" value="Signout" class="signout" onclick="window.location.href='${pageContext.request.contextPath}/index/logout';">
+						<input type="button" value="Signout" class="signout" onclick="localStorage.clear();window.location.href='${pageContext.request.contextPath}/index/logout';">
 					</div>
 				</div>
 			</div>

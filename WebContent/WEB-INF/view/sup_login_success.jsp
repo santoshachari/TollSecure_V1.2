@@ -12,7 +12,7 @@
     
 <script>
 //prevents right click
-document.addEventListener('contextmenu', event => event.preventDefault());
+//document.addEventListener('contextmenu', event => event.preventDefault());
 </script>
 <link type="text/css"
 	  rel = "stylesheet"
@@ -59,6 +59,8 @@ document.addEventListener('contextmenu', event => event.preventDefault());
 	 if(/Mobile/i.test(navigator.userAgent) && !/ipad/i.test(navigator.userAgent) ){
 		 window.location = "${pageContext.request.contextPath}/index/supmobilehome";
 	    }
+	 
+	 for(i=0;i<100;i++)history.pushState({}, null, "loginUser"); //encrypting url, also takes care of logout functionality
 </script>
 <!-- <script type="text/javascript">
         $(function() {
@@ -375,6 +377,10 @@ document.addEventListener('contextmenu', event => event.preventDefault());
         });
     </script>
 		  
+	<script>
+    	//handling user logging using localStorage
+    	localStorage.setItem("status", true);
+    </script>
 </body>	
 
 

@@ -36,6 +36,8 @@
 		//document.addEventListener('contextmenu', event = event.preventDefault());
 		//set latest toll plaza by default
 		
+		if (localStorage.status==undefined) window.location.href='${pageContext.request.contextPath}/index/logout'; //logout user incase status is undefined
+		
 		var action = "ExemptedTrafficReport";
 		
 		function showLanesDirections(plazaId) {
@@ -178,6 +180,7 @@
 				 var str = xmlHttp.responseText;
 				 str = str.trim();
 				 if (str=="logged_out") {
+					 localStorage.clear();
 					 window.location.href = "${pageContext.request.contextPath}/index/logout";
 				 } else {
 					 //window.open('${pageContext.request.contextPath}/jasper/iframe?action='+action, '_blank');	 
@@ -213,7 +216,7 @@
 					</div>
 					<div class="col-xs-4" style="position: relative; top: 25px; left: 40px;">
 						<span style="margin-right: 10px;"><!--Contact: 9999999999 --></span>
-						<input type="button" value="Signout" class="signout" onclick="window.location.href='${pageContext.request.contextPath}/index/logout';">
+						<input type="button" value="Signout" class="signout" onclick="localStorage.clear();window.location.href='${pageContext.request.contextPath}/index/logout';">
 					</div>
 				</div>
 			</div>
@@ -332,7 +335,7 @@
 		<div class="row">
 			<div class="col-xs-12" style="background-color: #ee9620">
 				<img src='${pageContext.request.contextPath}/resources/images/TS_Logo_hdpi.png' alt='TollSecure - Securing Toll Business' style="margin-left: 15%; margin-bottom: 10%" width="60%"/>
-				<input type="image" src="${pageContext.request.contextPath}/resources/images/mono-logout.svg" alt="Signout" width="28" height="28" style="margin-left: 15%" onclick="window.location.href='${pageContext.request.contextPath}/index/logout';">
+				<input type="image" src="${pageContext.request.contextPath}/resources/images/mono-logout.svg" alt="Signout" width="28" height="28" style="margin-left: 15%" onclick="localStorage.clear();window.location.href='${pageContext.request.contextPath}/index/logout';">
 				<br><span style="margin-left:7%">Exempted Traffic Report</span>
 			</div>
 		</div>

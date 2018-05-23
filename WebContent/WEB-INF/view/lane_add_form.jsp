@@ -20,6 +20,8 @@
 
 	<script type="text/javascript">
 	
+	if (localStorage.status==undefined) window.location.href='${pageContext.request.contextPath}/index/logout'; //logout user incase status is undefined
+	
 	//on change option for tollPlaza list
 	var xmlHttp;
 	function showLanesDirections(plazaId) {
@@ -205,7 +207,7 @@
 						</div>
 						<div class="col-xs-4" style="position: relative; top: 25px; left: 40px;">
 							<!-- <span style="margin-right: 10px;">Contact: 9999999999 </span> -->
-							<input type="button" value="Signout" class="signout" onclick="window.location.href='${pageContext.request.contextPath}/index/logout';">
+							<input type="button" value="Signout" class="signout" onclick="localStorage.clear();window.location.href='${pageContext.request.contextPath}/index/logout';">
 						</div>
 					</div>
 				</div>
@@ -331,7 +333,7 @@
 				<div class="row">
 					<div class="col-xs-12" style="background-color: #ee9620">
 						<img src='${pageContext.request.contextPath}/resources/images/TS_Logo_hdpi.png' alt='TollSecure - Securing Toll Business' style="margin-left: 15%; margin-bottom: 10%" width="60%"/>
-						<input type="image" src="${pageContext.request.contextPath}/resources/images/mono-logout.svg" alt="Signout" width="28" height="28" style="margin-left: 15%" onclick="window.location.href='${pageContext.request.contextPath}/index/logout';">
+						<input type="image" src="${pageContext.request.contextPath}/resources/images/mono-logout.svg" alt="Signout" width="28" height="28" style="margin-left: 15%" onclick="localStorage.clear();window.location.href='${pageContext.request.contextPath}/index/logout';">
 						<br><span style="margin-left:25%">Lane Add Form</span>
 					</div>
 				</div>

@@ -693,7 +693,7 @@ public class RegisterAndLoginController {
 					
 					System.out.println("-=-=-=>>>>session has shiftTransactionFromSession: "+theShiftTransaction);
 					
-					return "redirect://tollTransaction/tollTransactionForm?plazaId="+tpId+"&laneId="+lId;
+					return "redirect:/tollTransaction/tollTransactionForm?plazaId="+tpId+"&laneId="+lId;
 				} else {
 					session.removeAttribute("userFromSession");
 					session.invalidate();
@@ -772,7 +772,7 @@ public class RegisterAndLoginController {
 					
 					System.out.println("-=-=-=>>>>session has shiftTransactionFromSession: "+theShiftTransaction);
 					
-					return "redirect://tollTransaction/tollTransactionForm?plazaId="+tpId+"&laneId="+lId;
+					return "redirect:/tollTransaction/tollTransactionForm?plazaId="+tpId+"&laneId="+lId;
 				} else {
 					session.removeAttribute("userFromSession");
 					session.invalidate();
@@ -816,7 +816,7 @@ public class RegisterAndLoginController {
 					
 					System.out.println("-=-=-=>>>>session has shiftTransactionFromSession: "+theShiftTransaction);
 					
-					return "redirect://tollTransaction/tollTransactionForm?plazaId="+tpId+"&laneId="+lId;
+					return "redirect:/tollTransaction/tollTransactionForm?plazaId="+tpId+"&laneId="+lId;
 				} else {
 					session.removeAttribute("userFromSession");
 					session.invalidate();
@@ -855,7 +855,7 @@ public class RegisterAndLoginController {
 					
 					System.out.println("-=-=-=>>>>session has shiftTransactionFromSession: "+theShiftTransaction);
 					
-					return "redirect://tollTransaction/tollTransactionForm?plazaId="+tpId+"&laneId="+lId;
+					return "redirect:/tollTransaction/tollTransactionForm?plazaId="+tpId+"&laneId="+lId;
 				} else {
 					session.removeAttribute("userFromSession");
 					session.invalidate();
@@ -895,7 +895,7 @@ public class RegisterAndLoginController {
 					
 					System.out.println("-=-=-=>>>>session has shiftTransactionFromSession: "+theShiftTransaction);
 					
-					return "redirect://tollTransaction/tollTransactionForm?plazaId="+tpId+"&laneId="+lId;
+					return "redirect:/tollTransaction/tollTransactionForm?plazaId="+tpId+"&laneId="+lId;
 				} else {
 					session.removeAttribute("userFromSession");
 					session.invalidate();
@@ -937,7 +937,7 @@ public class RegisterAndLoginController {
 					
 					System.out.println("-=-=-=>>>>session has shiftTransactionFromSession: "+theShiftTransaction);
 					
-					return "redirect://tollTransaction/tollTransactionForm?plazaId="+tpId+"&laneId="+lId;
+					return "redirect:/tollTransaction/tollTransactionForm?plazaId="+tpId+"&laneId="+lId;
 				} else {
 					session.removeAttribute("userFromSession");
 					session.invalidate();
@@ -985,7 +985,7 @@ public class RegisterAndLoginController {
 					
 					System.out.println("-=-=-=>>>>session has shiftTransactionFromSession: "+theShiftTransaction);
 					
-					return "redirect://tollTransaction/tollTransactionForm?plazaId=1&laneId="+lId;
+					return "redirect:/tollTransaction/tollTransactionForm?plazaId=1&laneId="+lId;
 				} else {
 					/*System.out.println("Condition2: "+(floatAmountDetail.get(0).getUserId()==myUser.getUserId()));
 					System.out.println("Condidion2 Modified: "+(floatAmountDetail.get(0).getUserId().equals(myUser.getUserId())));
@@ -1210,13 +1210,13 @@ public class RegisterAndLoginController {
 		return "sup_login_success_mob";
 	}
 	
-	@RequestMapping("/adminLoggedIn")
+	/*@RequestMapping("/adminLoggedIn")
 	public String checkAdminLoggedIn(HttpSession session) {
 		//handling session
-		//User userFromSession = (User) session.getAttribute("userFromSession");
-		//System.out.println(userFromSession);
-		//if(userFromSession==null) return "blank_page1";
-		//if(!userFromSession.getUserRole().equals("Admin")) return "blank_page1";
+		User userFromSession = (User) session.getAttribute("userFromSession");
+		System.out.println(userFromSession);
+		if(userFromSession==null) return "blank_page1";
+		if(!userFromSession.getUserRole().equals("Admin")) return "blank_page1";
 		
 		System.out.println("hi all");
 		
@@ -1226,14 +1226,14 @@ public class RegisterAndLoginController {
 	@RequestMapping("/loggedIn")
 	public String checkLoggedIn(HttpSession session) {
 		//handling session
-		//User userFromSession = (User) session.getAttribute("userFromSession");
-		//if(userFromSession==null) return "blank_page1";
-		//if(!userFromSession.getUserRole().equals("Admin") && !userFromSession.getUserRole().equals("Supervisor")) return "blank_page1";
+		User userFromSession = (User) session.getAttribute("userFromSession");
+		if(userFromSession==null) return "blank_page1";
+		if(!userFromSession.getUserRole().equals("Admin") && !userFromSession.getUserRole().equals("Supervisor")) return "blank_page1";
 
 		System.out.println("hi all");
 		
 		return "blank_page";
-	}
+	}*/
 }
 
 

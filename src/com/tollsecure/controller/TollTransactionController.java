@@ -1405,7 +1405,13 @@ public class TollTransactionController {
 	}
 	
 	@RequestMapping("/getVehicleTranactions")
-	public String getVehicleTransactions(HttpServletRequest request, Model theModel) {
+	public String getVehicleTransactions(HttpServletRequest request, Model theModel, HttpSession session) {
+		
+		//handling session
+		User userFromSession = (User) session.getAttribute("userFromSession");
+		if(userFromSession==null) return "blank_page1";
+		if(!userFromSession.getUserRole().equals("Admin") && !userFromSession.getUserRole().equals("Supervisor")) return "blank_page1"; 
+		
 		String laneId = request.getParameter("laneId");
 		String startTime = request.getParameter("startTime");
 		String endTime = request.getParameter("endTime");
@@ -1440,7 +1446,13 @@ public class TollTransactionController {
 	}
 	
 	@RequestMapping("/getVehicleTranactionsForMobile") 
-	public String getVehicleTransactionsForMobile(HttpServletRequest request, Model theModel) {
+	public String getVehicleTransactionsForMobile(HttpServletRequest request, Model theModel, HttpSession session) {
+		
+		//handling session
+		User userFromSession = (User) session.getAttribute("userFromSession");
+		if(userFromSession==null) return "blank_page1";
+		if(!userFromSession.getUserRole().equals("Admin") && !userFromSession.getUserRole().equals("Supervisor")) return "blank_page1";
+				
 		String laneId = request.getParameter("laneId");
 		String startTime = request.getParameter("startTime");
 		String endTime = request.getParameter("endTime");
@@ -1475,7 +1487,13 @@ public class TollTransactionController {
 	}
 	
 	@GetMapping("/transactionDetails")
-	public String getTransactionDetails(HttpServletRequest request, Model theModel) {
+	public String getTransactionDetails(HttpServletRequest request, Model theModel, HttpSession session) {
+		
+		//handling session
+		User userFromSession = (User) session.getAttribute("userFromSession");
+		if(userFromSession==null) return "redirect:/";
+		if(!userFromSession.getUserRole().equals("Admin") && !userFromSession.getUserRole().equals("Supervisor")) return "redirect:/"; 
+		
 		String transactionId = request.getParameter("transactionId");
 		
 		//get the query Parameters for prev next functionality
