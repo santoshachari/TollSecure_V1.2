@@ -15,6 +15,7 @@
     
 		<script src="${pageContext.request.contextPath}/resources/js/jQuery.js"></script>
 		<script type="text/javascript">
+		
 		    $(window).on('load resize',function(){
 		        if($(window).width() > 767){
 		            window.location = "${pageContext.request.contextPath}/index/h0me";
@@ -34,7 +35,6 @@
 				 window.location = "${pageContext.request.contextPath}/index/h0me";
 			    }
 			 
-			 for(i=0;i<100;i++)history.pushState({}, null, "loginUser"); //encrypting url, also takes care of logout functionality
 		</script>
 		
 		<!-- for icons -->
@@ -294,7 +294,7 @@
 							<div>
 							<img src='${pageContext.request.contextPath}/resources/images/TS_Logo_hdpi.png' alt='TollSecure - Securing Toll Business' width="60%"/>
 							<input type="image" value="" class="" style="margin-left: 15%;">
-							<input type="image" src="${pageContext.request.contextPath}/resources/images/mono-logout.svg" alt="Signout" width="28" height="28"  onclick="window.location.href='${pageContext.request.contextPath}/index/logout';">
+							<input type="image" src="${pageContext.request.contextPath}/resources/images/mono-logout.svg" alt="Signout" width="28" height="28"  onclick="localStorage.clear();window.location.href='${pageContext.request.contextPath}/index/logout';">
 							</div>
 						</header>
 						<div class="content clearfix" style="margin-top: 0%; width: 100%; padding: 0%">
@@ -314,9 +314,23 @@
 		</script>
 	</body>
 	
-	<script>
-    	//handling user logging using localStorage
-    	localStorage.setItem("status", true);
-    </script>
+		<input id="backbuttonstate" type="text" value="0" style="display:none;" />
+		
+		<script>
+	    	document.addEventListener('DOMContentLoaded', function () {
+	    	   var ibackbutton = document.getElementById("backbuttonstate");
+	    	   if (ibackbutton.value == "0") {
+	    	     // Page has been loaded for the first time - Set marker
+	    	     ibackbutton.value = "1";
+	    	     
+	    	    //handling user logging using localStorage
+	 	    	localStorage.setItem("status", true);
+	    	   
+	    	   } else {
+	    	     // Back button has been fired.. Do Something different..
+	    	     if (localStorage.status==undefined) window.location.href='${pageContext.request.contextPath}/index/logout'; //logout user incase status is undefined
+	    	   }
+	    	}, false);
+    	</script>
     
 </html>

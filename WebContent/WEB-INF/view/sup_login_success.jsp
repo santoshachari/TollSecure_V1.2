@@ -10,9 +10,12 @@
  	<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.ico" type="image/x-icon">
     <link rel="icon" href="${pageContext.request.contextPath}/resources/images/favicon.ico" type="image/x-icon">
     
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
 <script>
 //prevents right click
 //document.addEventListener('contextmenu', event => event.preventDefault());
+
 </script>
 <link type="text/css"
 	  rel = "stylesheet"
@@ -60,7 +63,6 @@
 		 window.location = "${pageContext.request.contextPath}/index/supmobilehome";
 	    }
 	 
-	 for(i=0;i<100;i++)history.pushState({}, null, "loginUser"); //encrypting url, also takes care of logout functionality
 </script>
 <!-- <script type="text/javascript">
         $(function() {
@@ -90,7 +92,7 @@
 						</div>
 						<div class="col-xs-4" style="position: relative; top: 25px; left: 40px;">
 							<span style="margin-right: 10px;"><!-- Contact: 9999999999  --></span>
-							<input type="button" value="Signout" class="signout" onclick="window.location.href='${pageContext.request.contextPath}/index/logout';">
+							<input type="button" value="Signout" class="signout" onclick="localStorage.clear();window.location.href='${pageContext.request.contextPath}/index/logout';">
 						</div>
 					</div>
 				</div>
@@ -377,10 +379,24 @@
         });
     </script>
 		  
-	<script>
-    	//handling user logging using localStorage
-    	localStorage.setItem("status", true);
-    </script>
+		<input id="backbuttonstate" type="text" value="0" style="display:none;" />
+		
+		<script>
+	    	document.addEventListener('DOMContentLoaded', function () {
+	    	   var ibackbutton = document.getElementById("backbuttonstate");
+	    	   if (ibackbutton.value == "0") {
+	    	     // Page has been loaded for the first time - Set marker
+	    	     ibackbutton.value = "1";
+	    	     
+	    	    //handling user logging using localStorage
+	 	    	localStorage.setItem("status", true);
+	    	   
+	    	   } else {
+	    	     // Back button has been fired.. Do Something different..
+	    	     if (localStorage.status==undefined) window.location.href='${pageContext.request.contextPath}/index/logout'; //logout user incase status is undefined
+	    	   }
+	    	}, false);
+    	</script>
 </body>	
 
 

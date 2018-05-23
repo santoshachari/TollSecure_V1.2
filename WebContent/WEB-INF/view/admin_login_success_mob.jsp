@@ -13,13 +13,8 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Admin Home Mobile</title>
 		<script src="${pageContext.request.contextPath}/resources/js/jQuery.js"></script>
-		<script>
-			//prevents right click
-			//document.addEventListener('contextmenu', event => event.preventDefault());
-			for(i=0;i<100;i++)history.pushState({}, null, "loginUser"); //encrypting url, also takes care of logout functionality
-		</script>
-		<script type="text/javascript">
 
+		<script type="text/javascript">
 		
 		
 		    $(window).on('load resize',function(){
@@ -41,6 +36,7 @@
 			 window.location = "${pageContext.request.contextPath}/index/h0me";
 		    }
 		</script>
+		
 		
 		<!-- for icons -->
 		<style>
@@ -311,9 +307,25 @@
 			new mlPushMenu( document.getElementById( 'mp-menu' ), document.getElementById( 'trigger' ) );
 		</script>
 		
+		<input id="backbuttonstate" type="text" value="0" style="display:none;" />
+		
 		<script>
-	    	//handling user logging using localStorage
-	    	localStorage.setItem("status", true);
+	    	
+
+	    	document.addEventListener('DOMContentLoaded', function () {
+	    	   var ibackbutton = document.getElementById("backbuttonstate");
+	    	   if (ibackbutton.value == "0") {
+	    	     // Page has been loaded for the first time - Set marker
+	    	     ibackbutton.value = "1";
+	    	     
+	    	    //handling user logging using localStorage
+	 	    	localStorage.setItem("status", true);
+	    	   
+	    	   } else {
+	    	     // Back button has been fired.. Do Something different..
+	    	     if (localStorage.status==undefined) window.location.href='${pageContext.request.contextPath}/index/logout'; //logout user incase status is undefined
+	    	   }
+	    	}, false);
     	</script>
     
 	</body>

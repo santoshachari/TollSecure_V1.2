@@ -162,7 +162,7 @@
 								
 							</div>
 					</div>
-				<form>
+				</form>
 					<!-- photo -->
 					<!-- <div class="col-sm-4" style="margin-bottom: 20px; ">
 						<div class="cctv" style="">
@@ -191,7 +191,7 @@
 		</div>	
 	</div>
 	
-	
+
 	<div class="visible-xs container" style="margin: 0px; padding: 0px">
 		
 				
