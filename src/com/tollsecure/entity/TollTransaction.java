@@ -1,5 +1,6 @@
 package com.tollsecure.entity;
 
+import java.sql.Blob;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -8,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -77,8 +79,9 @@ public class TollTransaction {
 	@Column(name="CANCELLATION_CODE")
 	private String cancellationCode;
 	
-	@Column(name="IMAGE_BLOB")
-	private byte[] imageBlob;
+	@Lob
+    @Column(name="IMAGE_BLOB", columnDefinition="mediumblob")
+    private byte[] imageBlob;
 	
 	@Column(name="VIDEO_BLOB")
 	private byte[] videoBlob;

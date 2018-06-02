@@ -4,9 +4,14 @@ import java.awt.image.BufferedImage;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -21,7 +26,9 @@ import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.xml.bind.DatatypeConverter;
 
+import org.apache.commons.codec.binary.Base64;
 import org.krysalis.barcode4j.impl.code128.Code128Bean;
 import org.krysalis.barcode4j.output.bitmap.BitmapCanvasProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -741,7 +748,7 @@ public class TollTransactionController {
 		
 		
 		/**
-		 * This is commented in case of testing if there is no camera installed 
+		 * This is commented in case of testing if there is no camera installed especially in Linux
 		 */
 		if (!ticketCode.substring(0,2).equals("L1") && !ticketCode.substring(0,2).equals("L8")) { //lame 1 and lane 8 do not have cameras
 			try {
@@ -786,6 +793,21 @@ public class TollTransactionController {
 		 */
 		
 		
+		//Image saving test
+		/**
+		 * https://dzone.com/articles/how-load-or-save-image-using
+		 */
+		//File imageFile = new File("/home/anjan/Downloads/lunch.jpg");
+		File imageFile =new File("C:\\TollSecure\\vehicleImages\\"+today+"\\"+ticketCode+".jpeg");
+		byte[] bImageFile = new byte[(int) imageFile.length()];
+		try {
+            FileInputStream fileInputStream = new FileInputStream(imageFile);
+            fileInputStream.read(bImageFile);
+            fileInputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+		theTollTransaction.setImageBlob(bImageFile);
 		
 		
 		
@@ -1516,8 +1538,6 @@ public class TollTransactionController {
 		
 		
 		if(!transaction_full_details.isEmpty()) theModel.addAttribute("transaction", transaction_full_details.get(0));
-		
-		//if ()
 		
 		return "vehicle_details";
 	}

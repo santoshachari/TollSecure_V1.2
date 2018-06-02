@@ -72,7 +72,7 @@ function getNextOne() {
 	alert(transaction[10]);
 	alert(transaction[11]);
 	alert(transaction[12]);*/
-	setImageSource(transaction[8]);
+	setImageSource(transaction[8], transaction[2]);
 	
 	document.getElementById("sticketNo").value = transaction[2];
 	document.getElementById("stime").value = transaction[6];
@@ -135,8 +135,7 @@ function getPreviousOne() {
 	alert(transaction[11]);
 	alert(transaction[12]);*/
 
-	
-	setImageSource(transaction[8]);
+	setImageSource(transaction[8], transaction[2]);
 	
 	document.getElementById("sticketNo").value = transaction[2];
 	document.getElementById("stime").value = transaction[6];	

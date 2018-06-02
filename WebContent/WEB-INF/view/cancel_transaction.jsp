@@ -3,21 +3,39 @@
 <head>
 <!-- for image highlight -->
 <style>
-#img1 {
+<!-- displaying drive images upon db images -->
+#img1, #simg1, #dimg1, #sdimg1 {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+#img1, #simg1 {
+  z-index: 1;
+}
+.dimg1, #sdimg1 {
+  z-index: 3;
+}
+
+
+<!-- for image highlight -->
+
+#img1, #dimg1 {
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#simg1, #sdimg1 {
     border-radius: 5px;
     cursor: pointer;
     transition: 0.3s;
 }
 
 #img1:hover {opacity: 0.7;}
-
-#simg1 {
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
 #simg1:hover {opacity: 0.7;}
+
+#dimg1:hover {opacity: 0.7;}
+#sdimg1:hover {opacity: 0.7;}
 
 /* The Modal (background) */
 .modal {
@@ -526,11 +544,13 @@
 							<%-- <img src="${pageContext.request.contextPath}/resources/vehicleImages/${tollTransaction.imageAddress}" id="img"/> --%>
 						
 							<!-- for windows -->
-							<img id="img1" src="<c:url value="/vehicleImages/${tollTransaction.imageAddress}" />" style="max-width:100%;">
+							<img id="dimg1" src="<c:url value="/vehicleImages/${tollTransaction.imageAddress}" />" style="max-width:100%;">
 							
 							<!-- for ubuntu -->
 							<img id="img" alt="" src="<c:url value="/Wallpapers/${tollTransaction.imageAddress}" />" style="max-width:100%;">
 						
+							<!-- from db -->
+							<img id="img1" src="<c:url value="/myImage/imageDisplay?code=${tollTransaction.ticketCode }" />" style="max-width:100%;"/>
 						</div>
 					</div>
 
@@ -591,7 +611,10 @@
 		
 		<div class="row visible-xs">
 			<div class="col-xs-12" style="background-color: #6f7070; max-width:90%; margin:5%; margin-top:2%; border-radius: 20px; min-height: 220px;">
-				<img id="simg1" src="<c:url value="/vehicleImages/${tollTransaction.imageAddress}" />" style="max-width:100%;">
+				<img id="sdimg1" src="<c:url value="/vehicleImages/${tollTransaction.imageAddress}" />" style="max-width:100%;">
+			
+				<!-- from db -->
+				<img id="img1" src="<c:url value="/myImage/imageDisplay?code=${tollTransaction.ticketCode }" />" style="max-width:100%;"/>
 			</div>
 		</div>
 		
