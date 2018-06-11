@@ -11,28 +11,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <head>
 <style>
-<!-- displaying drive images upon db images -->
-#img1, #simg1, #dimg1, #sdimg1 {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-}
-#img1, #simg1 {
-  z-index: 1;
-}
-.dimg1, #sdimg1 {
-  z-index: 3;
-}
 
 <!-- for image highlight -->
 
-#img1, #dimg1 {
+#img1 {
     border-radius: 5px;
     cursor: pointer;
     transition: 0.3s;
 }
 
-#simg1, #sdimg1 {
+#simg1 {
     border-radius: 5px;
     cursor: pointer;
     transition: 0.3s;
@@ -41,8 +29,6 @@
 #img1:hover {opacity: 0.7;}
 #simg1:hover {opacity: 0.7;}
 
-#dimg1:hover {opacity: 0.7;}
-#sdimg1:hover {opacity: 0.7;}
 
 /* The Modal (background) */
 .modal {
@@ -261,13 +247,13 @@
 							<!-- <img src="https://thumbs.dreamstime.com/z/cat-deep-blue-eyes-2995129.jpg"/> -->
 							
 							<!-- for windows -->
-							<img id="dimg1" src="<c:url value="/vehicleImages/${transaction[7]}" />" style="max-width:100%;"> 
+<%-- 							<img id="dimg1" src="<c:url value="/vehicleImages/${transaction[7]}" />" style="max-width:100%;">  --%>
 							
 							<!-- for ubuntu -->
 							<%-- <img id="img" alt="" src="<c:url value="/Wallpapers/${transaction[7]}" />" style="max-width:100%;"> --%>
 						
 							<!-- from db -->
-							<img id="img1" src="<c:url value="/myImage/imageDisplay?code=${transaction[0]}" />" style="max-width:100%;"/>
+							<img id="img1" src="<c:url value="/myImage/imageDisplay?code=${transaction[0]}" />" onerror='this.src="<c:url value="/vehicleImages/${transaction[7]}" />"' style="max-width:100%;"/>
 							
 						</div>
 					</div>
@@ -377,8 +363,8 @@
 			</div>
 			
 			<div class="col-xs-12" style="background-color: #6f7070; max-width:90%; margin:5%; margin-top:2%; border-radius: 20px; min-height: 220px;">
-				<img id="sdimg1" src="<c:url value="/vehicleImages/${transaction[7]}" />" style="max-width:100%;"> 
-				<img id="simg1" src="<c:url value="/myImage/imageDisplay?code=${transaction[0]}" />" style="max-width:100%;"/>
+<%-- 				<img id="sdimg1" src="<c:url value="/vehicleImages/${transaction[7]}" />" style="max-width:100%;">  --%>
+				<img id="simg1" src="<c:url value="/myImage/imageDisplay?code=${transaction[0]}" />" onerror='this.src="<c:url value="/vehicleImages/${transaction[7]}" />"' style="max-width:100%;"/>
 			</div>
 		</div>
 		
@@ -437,14 +423,18 @@ span.onclick = function() {
 		document.getElementById("simg1").src="";
 		document.getElementById("img1").src = "${pageContext.request.contextPath}/myImage/imageDisplay?code="+str1;
 		document.getElementById("simg1").src = "${pageContext.request.contextPath}/myImage/imageDisplay?code="+str1;
+	
+		//remove alternate if he presses previous or next
+		document.getElementById('img1').removeAttribute('onerror');
+		document.getElementById('simg1').removeAttribute('onerror');
 		
-		
-		//these are from drive
-		document.getElementById("dimg1").src="";
-		document.getElementById("sdimg1").src="";
-		document.getElementById("dimg1").src = "${pageContext.request.contextPath}/vehicleImages/"+str;
-		document.getElementById("sdimg1").src = "${pageContext.request.contextPath}/vehicleImages/"+str;
-		
+		document.getElementById("img1").addEventListener("error", setImageSorrceFromDrive(str)); 
+		document.getElementById("simg1").addEventListener("error", setImageSorrceFromDrive(str));
+	}
+
+	function setImageSorrceFromDrive(str) {
+		document.getElementById("img1").src = "${pageContext.request.contextPath}/vehicleImages/"+str;
+		document.getElementById("simg1").src = "${pageContext.request.contextPath}/vehicleImages/"+str;	
 	}
 </script>
 

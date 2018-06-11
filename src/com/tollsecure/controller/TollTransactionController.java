@@ -166,6 +166,11 @@ public class TollTransactionController {
 	@GetMapping("/tollTransactionForm")
 	public String showTollForm(@RequestParam("plazaId") Integer plazaId,@RequestParam("laneId") Integer laneId, Model theModel, HttpServletRequest  request, HttpSession session) {
 		
+		/**
+		 * testing time taken
+		 */
+		//System.out.println(">>>>>>>>>Entered /tollTransactionForm method: "+new Date()+" >>>>>>>>>>>>>>>>>>");
+		
 		//handling session
 		User userFromSession = (User) session.getAttribute("userFromSession");
 		if(userFromSession==null) return "redirect:/";
@@ -208,7 +213,7 @@ public class TollTransactionController {
 		
 		//getting ip address //for future use
 		String ipAddr = request.getRemoteAddr();
-		System.out.println(ipAddr+"=>>>>>====");
+		//System.out.println(ipAddr+"=>>>>>====");
 		
 
 		
@@ -227,6 +232,12 @@ public class TollTransactionController {
 		//getting current shift
 		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 		String sCertDate = dateFormat.format(new Date());
+		
+		/**
+		 * testing time taken
+		 */
+		//System.out.println(">>>>>>>>>Got the current shift: Time: "+new Date()+" >>>>>>>>>>>>>");
+		
 		
 		//it returns shiftDesc_shift_id
 		Shift currentShift = theShiftService.getShift(sCertDate, plazaId);
@@ -275,6 +286,11 @@ public class TollTransactionController {
 		}
 		
 		theModel.addAttribute("shiftEndTime", shiftEndTime);
+		
+		/**
+		 * testing time taken
+		 */
+		//System.out.println(">>>>>>>>> Calculated shift end time: "+new Date()+" >>>>>>>>>>>>>>>");
 		
 		//also check whether there is less then half an hour for shift end
 		SimpleDateFormat forCheck = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -333,6 +349,10 @@ public class TollTransactionController {
 			return "redirect:/index/logout";
 		}
 		
+		/**
+		 * testing time taken
+		 */
+		//System.out.println(">>>>>>>>>>> Checked the asigned user to lane: "+new Date()+" >>>>>>>>>>>>>>>>>>>");
 		
 		//get the last transaction for current laneId and currentShift 
 		TollTransaction lastTollTransaction = tollTransactionService.getLastTollTransaction(laneId, currentShift);
@@ -348,7 +368,10 @@ public class TollTransactionController {
 		
 		
 		
-		
+		/**
+		 * testing time taken
+		 */
+		//System.out.println(">>>>>>>>>>>>>> Set the last toll transaction: "+new Date()+" >>>>>>>>>>>>");
 		
 		//before saving check with end date of shift and if it exceeds do not save and redirect to logout
 		
@@ -800,16 +823,25 @@ public class TollTransactionController {
 		//File imageFile = new File("/home/anjan/Downloads/lunch.jpg");
 		File imageFile =new File("C:\\TollSecure\\vehicleImages\\"+today+"\\"+ticketCode+".jpeg");
 		byte[] bImageFile = new byte[(int) imageFile.length()];
+		//FileInputStream fileInputStream = null;
 		try {
-            FileInputStream fileInputStream = new FileInputStream(imageFile);
+			FileInputStream fileInputStream = new FileInputStream(imageFile);
             fileInputStream.read(bImageFile);
             fileInputStream.close();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+        	//try {
+				//fileInputStream.close();
+			//} catch (IOException e) {
+				// TODO Auto-generated catch block
+				//e.printStackTrace();
+			//}
         }
 		theTollTransaction.setImageBlob(bImageFile);
-		
-		
+		//this is added for memory leakage problem
+		//bImageFile = null;
+		//System.gc();
 		
 		//adding shiftId and shiftDesc to transaction
 		theTollTransaction.setShiftDescription(shiftDesc);

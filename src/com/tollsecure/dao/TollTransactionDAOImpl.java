@@ -105,7 +105,7 @@ public class TollTransactionDAOImpl implements TollTransactionDAO {
 		//the above query is modified for performance
 		Query<TollTransaction> theQuery = 
 				currentSession.createQuery("from TollTransaction order by transactionId desc", TollTransaction.class);
-		theQuery.setMaxResults(5000);
+		theQuery.setMaxResults(100);
 		
 		List<TollTransaction> lastTollTransaction = theQuery.getResultList();
 

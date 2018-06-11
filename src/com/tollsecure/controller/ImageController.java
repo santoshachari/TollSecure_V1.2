@@ -35,6 +35,7 @@ private TollTransactionService tollTransactionService;
 
 
     response.getOutputStream().close();
-	
+  //this is added for memory leakage problem
+	System.gc();
 	}
 }

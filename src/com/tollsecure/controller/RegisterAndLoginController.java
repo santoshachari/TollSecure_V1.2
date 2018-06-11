@@ -272,6 +272,11 @@ public class RegisterAndLoginController {
 	public String showHomePage(@ModelAttribute("user") User theUser, Model theModel, HttpSession session, HttpServletRequest  request) {	
 		System.out.println(">>>>>>After build problem ");
 		
+		/**
+		 * testing time taken
+		 */
+		//System.out.println(">>>>>>>> came into /home: Time: "+new Date()+" >>>>>>>>>>>>");
+		
 		//testing restful service
 		//String vehicleType = theRestService.getVehicleType();
 		//System.out.println("...>>>>>> "+vehicleType.toString());
@@ -285,6 +290,10 @@ public class RegisterAndLoginController {
 				return "admin_login_success";
 			} else if(userFromSession.getUserRole().equals("Operator")) {
 				System.out.println("-=-=-=-=Came into operatior");
+				/**
+				 * testing time taken
+				 */
+				//System.out.println(">>>>>>>>> Came into operator: Time: "+new Date()+" >>>>>>>>>>>>>>>>>>");
 				//check whether tollPplaza associated with that user exist
 				List<TollPlaza> tollPlazas = theTollPlazaService.getTollPlaza(userFromSession.getTollPlazaId());
 				TollPlaza tollPlaza = null;
@@ -299,6 +308,11 @@ public class RegisterAndLoginController {
 				
 				String ipAddr = request.getRemoteAddr();
 				System.out.println(ipAddr+"=>>>>>====");
+				
+				/**
+				 * testing time taken
+				 */
+				//System.out.println(" >>>>>>>>> Got Ip addr, need to open lane accordingly: "+new Date()+" >>>>>>>>>>>>>>>>");
 				
 				//for lane 2
 				//192.168.0.100
@@ -515,6 +529,12 @@ public class RegisterAndLoginController {
 			//check whether tollPplaza associated with that user exist
 			List<TollPlaza> tollPlazas = null;
 			TollPlaza tollPlaza = null;
+			
+			/**
+			 * testing time taken
+			 */
+			//System.out.println(">>>>>>>>> again operator: "+new Date()+" >>>>>>>>>>>>");
+			
 			if (myUser != null) {
 				tollPlazas = theTollPlazaService.getTollPlaza(myUser.getTollPlazaId());
 			}
@@ -668,6 +688,11 @@ public class RegisterAndLoginController {
 				Lane L2 = theLaneService.getLaneFromLaneCode("L5", tollPlaza.getTollPlazaId().toString());
 				Integer tpId = tollPlaza.getTollPlazaId();
 				Integer lId = L2.getLaneId();
+				
+				/**
+				 * testing time taken
+				 */
+				//System.out.println(" >>>>>>>>>>>>> Finally: "+new Date()+" >>>>>>>>>>>>>>>>>>");
 				
 				//before going to tollTransaction Screen check whether same user is assigned to the lane
 				List<FloatAmountDetails> floatAmountDetail = theFloatAmountDetailsService.getSameDetailIfExist(checkDate.toString(), tollPlaza.getTollPlazaId().toString(), lId.toString(), currentShift.getShiftId().toString());
