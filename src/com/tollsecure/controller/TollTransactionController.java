@@ -44,6 +44,7 @@ import com.tollsecure.entity.ConcessionVehicles;
 import com.tollsecure.entity.Exempt;
 import com.tollsecure.entity.FloatAmountDetails;
 import com.tollsecure.entity.Lane;
+import com.tollsecure.entity.LastTollTransaction;
 import com.tollsecure.entity.Pass;
 import com.tollsecure.entity.Shift;
 import com.tollsecure.entity.ShiftTransaction;
@@ -57,6 +58,7 @@ import com.tollsecure.service.ConcessionVehiclesService;
 import com.tollsecure.service.ExemptService;
 import com.tollsecure.service.FloatAmountDetailsService;
 import com.tollsecure.service.LaneService;
+import com.tollsecure.service.LastTollTransactionService;
 import com.tollsecure.service.PasService;
 import com.tollsecure.service.PassService;
 import com.tollsecure.service.ShiftService;
@@ -112,6 +114,9 @@ public class TollTransactionController {
 	@Autowired
 	private CashupService theCashupService;
 	
+	@Autowired
+	private LastTollTransactionService theLastTollTransactionService;
+	
 	//Bar-code image generator
 	public void createImage(String image_name,String myString)  {
 		try {
@@ -163,6 +168,7 @@ public class TollTransactionController {
 		
 	}
 
+	@SuppressWarnings("unlikely-arg-type")
 	@GetMapping("/tollTransactionForm")
 	public String showTollForm(@RequestParam("plazaId") Integer plazaId,@RequestParam("laneId") Integer laneId, Model theModel, HttpServletRequest  request, HttpSession session) {
 		
@@ -180,7 +186,7 @@ public class TollTransactionController {
 		User theUser = (User) session.getAttribute("userFromSession");
 		if (theUser.getUserRole().equals("Operator")) {
 			
-			//get all lanes for this Plaza
+			//get the lane
 			List<Lane> theLane = theLaneService.getLaneFromLaneId(laneId); //this brings only one lane at index 0 which the user wants to get in
 			
 			//check if user_id field is filled with other user
@@ -355,7 +361,15 @@ public class TollTransactionController {
 		//System.out.println(">>>>>>>>>>> Checked the asigned user to lane: "+new Date()+" >>>>>>>>>>>>>>>>>>>");
 		
 		//get the last transaction for current laneId and currentShift 
-		TollTransaction lastTollTransaction = tollTransactionService.getLastTollTransaction(laneId, currentShift);
+		TollTransaction lastTollTransaction = null;
+		List<Lane> theLane = theLaneService.getLaneFromLaneId(laneId);
+		LastTollTransaction theLastTollTransaction = theLastTollTransactionService.getLastTollTransactionForLane(theLane.get(0).getLaneCode());
+		if (theLastTollTransaction==null) { //fetching from the toll transaction table itself
+			lastTollTransaction = tollTransactionService.getLastTollTransaction(laneId, currentShift); 
+		} else {
+			lastTollTransaction = tollTransactionService.getTollTransactionFromId(theLastTollTransaction.getTransactionId().toString());
+			if (!lastTollTransaction.getShiftDescription().equals(currentShift.getShiftDesc())) lastTollTransaction = null;
+		}
 
 		//get last Transaction vehicleClass
 		String lastTransactionVehicleClass = null;
@@ -382,7 +396,7 @@ public class TollTransactionController {
 		theModel.addAttribute("tollConfigs", theTollConfigs);
 		theModel.addAttribute("uniqueJourneyTypes", uniqueJourneyTypes);
 		theModel.addAttribute("uniqueVehicleClasses", uniqueVehicleClasses);
-		theModel.addAttribute("lastTransaction", lastTollTransaction);
+		if(lastTollTransaction!=null)theModel.addAttribute("lastTransaction", lastTollTransaction);
 		theModel.addAttribute("lastTransactionVehicleClass",lastTransactionVehicleClass);
 		
 		System.out.println("-=-=-=-=-==>>>Last Toll Transaction: "+lastTollTransaction);
@@ -935,6 +949,21 @@ public class TollTransactionController {
 		List<Lane> lane = theLaneService.getLaneFromLaneId(savedOne.getLaneId());
 		String laneCode = null;
 		if (lane.size()>0)laneCode = lane.get(0).getLaneCode();
+		
+		//Save or Update the last toll transaction in last toll transaction table
+		if(laneCode!=null) {
+			//get the last toll transaction and update it
+			LastTollTransaction theLastTollTransaction = theLastTollTransactionService.getLastTollTransactionForLane(laneCode);
+			
+			if (theLastTollTransaction==null) { //this is the first time for lane so set all the values
+				theLastTollTransaction = new LastTollTransaction();
+				theLastTollTransaction.setLaneCode(laneCode);
+			} 
+			
+			theLastTollTransaction.setCreateTimeStamp(new Date());
+			theLastTollTransaction.setTransactionId(savedOne.getTransactionId());
+			theLastTollTransactionService.saveOrUpdate(theLastTollTransaction);
+		}
 		
 		//also save it in vehicle tracking table
 		VehicleTracking vehicleTracking = theVehicleTrackingService.getVehicleTrack(vnum);
