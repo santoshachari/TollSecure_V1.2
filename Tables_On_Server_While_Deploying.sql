@@ -131,7 +131,7 @@ PARENT_TRANSACTION_ID  INT,
 RECORD_IND VARCHAR(100),
 COMMENTS  VARCHAR(500), 
 CANCELLATION_CODE  VARCHAR(100),
-IMAGE_BLOB BLOB,
+IMAGE_BLOB MEDIUMBLOB,
 VIDEO_BLOB BLOB,
 PAYMENT_METHOD  VARCHAR(100),
 CLIENT_ID  INT,
@@ -364,4 +364,36 @@ alter table T_EXEMPT add column VEHICLE_NUMBER varchar(30) after EXEMPT_ID;
 alter table T_PASS add column CANCELLATION_CODE varchar(20);
 
 alter table T_PASS add column REMARKS varchar(100);
+
+ /*11th June 2018 AVC Table */
+CREATE TABLE IF NOT EXISTS t_avc 
+  ( 
+     avc_id              INT(10) UNSIGNED auto_increment PRIMARY KEY, 
+     avc_txn_number      INT, 
+     avc_date            DATE, 
+     avc_time            TIME, 
+     avc_direction       VARCHAR(3), 
+     avc_axle_count      INT, 
+     avc_wheel_base      INT, 
+     avc_height_sensor_1 VARCHAR(5), 
+     avc_height_sensor_2 VARCHAR(5), 
+     avc_height_sensor_3 VARCHAR(5), 
+     avc_height_sensor_4 VARCHAR(5),
+     avc_vehicle_class   VARCHAR(5),
+     avc_error_status    INT,
+     avc_sensor_alignment_status INT,
+     transaction_id      INT,
+     create_timestamp    DATETIME 
+  );
+  
+  ALTER TABLE t_avc ADD INDEX transaction_id (`transaction_id`);
+
+/*Last toll transaction*/
+CREATE TABLE IF NOT EXISTS t_last_toll_transaction
+	(
+		last_transaction_id INT UNSIGNED auto_increment PRIMARY KEY, 
+        lane_code 			VARCHAR(5),
+        transaction_id 		INT,
+        create_timestamp    DATETIME
+    );
 
